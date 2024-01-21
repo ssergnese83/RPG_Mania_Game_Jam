@@ -16,7 +16,6 @@ void startup_screen(void)
     while (!end_loop) {
         startup_screen_loop(startup_screen_vars);
     }
-    end_loop = false;
     previous_screen = current_screen;
     current_screen = TITLESCREEN;
 }
@@ -26,13 +25,11 @@ void startup_screen_loop(void* arg_) {
 
     startup_screen_vars->mouse_position = GetMousePosition();
 
-    if (WindowShouldClose()) {
-        CloseWindow();
-    }
+    
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        end_loop = true;
-        return;
+        // end_loop = true;
+        // return;
     }
 
     BeginDrawing();
@@ -40,10 +37,11 @@ void startup_screen_loop(void* arg_) {
         DrawText("STARTUP SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
         DrawText("This is where we flash our company logo because we are a company!", 20, 300, 40, RED);
 
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            DrawText("CLICK", SCREEN_W/2 - 384, 204, 80, RED);
-            printf("CLICK\n");
+        if (debug_mode) {
+            draw_debug_stuff();
         }
 
     EndDrawing();
+    
+    window_handling();
 }
