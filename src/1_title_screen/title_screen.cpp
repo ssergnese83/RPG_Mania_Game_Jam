@@ -17,7 +17,6 @@ void title_screen(void)
     while (!end_loop) {
         title_screen_loop(title_screen_vars);
     }
-    end_loop = false;
     previous_screen = current_screen;
     current_screen = MENUSCREEN;
 }
@@ -27,11 +26,6 @@ void title_screen_loop(void* arg_) {
 
     title_screen_vars->mouse_position = GetMousePosition();
 
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(title_screen_vars->mouse_position, title_screen_vars->play_button)) {
-        end_loop = true;
-        return;
-    }
-
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("TITLE SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
@@ -39,13 +33,19 @@ void title_screen_loop(void* arg_) {
 
         if(CheckCollisionPointRec(title_screen_vars->mouse_position, title_screen_vars->play_button)) {
             DrawRectangleRec(title_screen_vars->play_button, YELLOW);
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                end_loop = true;
+                return;
+            }
         } else {
             DrawRectangleRec(title_screen_vars->play_button, RED);
         }
+        
+        if (debug_mode) {
+            draw_debug_stuff();
+        }
 
     EndDrawing();
-
-    if (WindowShouldClose()) {
-        CloseWindow();
-    }
+    
+    window_handling();
 }
