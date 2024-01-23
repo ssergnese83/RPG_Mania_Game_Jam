@@ -9,6 +9,8 @@ typedef struct OverworldScreenVars {
     int test;
 } OverworldScreenVars;
 
+Character player;
+
 void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
@@ -27,8 +29,6 @@ void overworld_screen(void) {
 
 void overworld_screen_loop(void* arg_) {
     OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*) arg_;
-
-    Character player;
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
