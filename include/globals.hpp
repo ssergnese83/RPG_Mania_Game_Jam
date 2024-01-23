@@ -4,6 +4,8 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include <string> // cpp strings
+
 const int SCREEN_W = 1920;
 const int SCREEN_H = 1080;
 
