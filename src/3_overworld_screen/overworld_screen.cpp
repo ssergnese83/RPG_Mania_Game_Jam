@@ -5,21 +5,24 @@
 void overworld_screen_loop(void* arg_);
 
 typedef struct OverworldScreenVars {
-    Rectangle play_button;
-    Vector2 mouse_position;
+    
 } OverworldScreenVars;
 
 void overworld_screen(void)
 {
-    OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*)malloc(sizeof(OverworldScreenVars));
-    overworld_screen_vars->play_button = {20, 350, 700, 40};
-    overworld_screen_vars->mouse_position = {0.0,0.0};
+    // local vars init and alloc
+    OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
 
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
     }
+    
+    // next screen logic
     previous_screen = current_screen;
     current_screen = OVERWORLDSCREEN;
+
+    // local vars dealloc
+    delete OverworldScreenVars;
 }
 
 void overworld_screen_loop(void* arg_) {
