@@ -28,8 +28,10 @@ void overworld_screen(void)
 void overworld_screen_loop(void* arg_) {
     OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*) arg_;
 
-    overworld_screen_vars->mouse_position = GetMousePosition();
-
+    //processing
+    
+    
+    // drawing
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("OVERWORLD SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
