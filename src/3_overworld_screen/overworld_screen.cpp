@@ -29,7 +29,7 @@ void overworld_screen_loop(void* arg_) {
     OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*) arg_;
 
     //processing
-
+    
     
     // drawing
     BeginDrawing();

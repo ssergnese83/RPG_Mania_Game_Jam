@@ -121,10 +121,11 @@ void Character::movePlayer() { // moves the player based on input
 }
 
 void Character::drawPlayer() { // draws the player sprite
-
+    
 }
 
 void Character::loadSprite() {
+    this->sprite[0] = LoadTexture("assets/player.png");
     // this->sprite[LEFT] = LoadTexture("assets/charNoSword2.png");
     // this->sprite[RIGHT] = LoadTexture("assets/charNoSword1.png");
     // this->sprite[RIGHT_SWORD] = LoadTexture("assets/charRight.png");
