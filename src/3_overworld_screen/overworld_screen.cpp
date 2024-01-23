@@ -15,10 +15,9 @@ void overworld_screen(void) {
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
     }
-    
-    // next screen logic
+
     previous_screen = current_screen;
-    current_screen = OVERWORLDSCREEN;
+    current_screen = next_screen;
 
     // local vars dealloc
     delete overworld_screen_vars;
@@ -40,6 +39,9 @@ void overworld_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+
+    // next screen logic
+    next_screen = OVERWORLDSCREEN;
     
     window_handling();
 }

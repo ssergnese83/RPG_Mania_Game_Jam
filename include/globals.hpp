@@ -17,6 +17,7 @@ extern bool debug_mode;
 
 enum GameScreen {STARTUP = 0, TITLESCREEN = 1, MENUSCREEN = 2, OVERWORLDSCREEN = 3, BATTLESCREEN = 4};
 
+extern GameScreen next_screen;
 extern GameScreen current_screen;
 extern GameScreen previous_screen;
 

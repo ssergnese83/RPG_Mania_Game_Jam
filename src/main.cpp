@@ -5,6 +5,7 @@
 bool end_loop = false;
 bool debug_mode = false;
 
+GameScreen next_screen = STARTUP;
 GameScreen current_screen = STARTUP;
 GameScreen previous_screen = STARTUP;
 
@@ -56,4 +57,17 @@ void draw_debug_stuff(void) {
     DrawRectangle(48, 48, 48, 48, GREEN);
     DrawText(TextFormat("Mouse X = %d", (int) GetMousePosition().x), 500, 500, 50, RED);
     DrawText(TextFormat("Mouse Y = %d", (int) GetMousePosition().y), 500, 560, 50, RED);
+
+    Rectangle battle_button = {800, 800, 350, 50};
+
+    if(CheckCollisionPointRec(GetMousePosition(), battle_button)) {
+            DrawRectangleRec(battle_button, GREEN);
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                next_screen = BATTLESCREEN;
+                end_loop = true;
+            }
+        } else {
+            DrawRectangleRec(battle_button, YELLOW);
+        }
+        DrawText("battle_button", 800, 800, 50, RED);
 }

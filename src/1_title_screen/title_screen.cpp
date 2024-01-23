@@ -16,8 +16,9 @@ void title_screen(void) {
     while (!end_loop) {
         title_screen_loop(title_screen_vars);
     }
+
     previous_screen = current_screen;
-    current_screen = MENUSCREEN;
+    current_screen = next_screen;
 
     delete title_screen_vars;
 }
@@ -47,6 +48,9 @@ void title_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+
+    // next screen logic
+    next_screen = MENUSCREEN;
     
     window_handling();
 }

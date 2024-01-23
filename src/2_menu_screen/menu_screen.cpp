@@ -5,20 +5,21 @@
 void menu_screen_loop(void* arg_);
 
 typedef struct MenuScreenVars {
-    Rectangle play_button;
     Vector2 mouse_position;
+    Rectangle play_button;
 } MenuScreenVars;
 
 void menu_screen(void) {
     MenuScreenVars* menu_screen_vars = new MenuScreenVars;
-    menu_screen_vars->play_button = {20, 350, 700, 40};
     menu_screen_vars->mouse_position = {0.0,0.0};
+    menu_screen_vars->play_button = {20, 350, 700, 40};
 
     while (!end_loop) {
         menu_screen_loop(menu_screen_vars);
     }
+    
     previous_screen = current_screen;
-    current_screen = OVERWORLDSCREEN;
+    current_screen = next_screen;
 
     delete menu_screen_vars;
 }
@@ -48,6 +49,9 @@ void menu_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+
+    // next screen logic
+    next_screen = OVERWORLDSCREEN;
     
     window_handling();
 }

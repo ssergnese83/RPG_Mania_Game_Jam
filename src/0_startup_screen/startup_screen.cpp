@@ -16,8 +16,9 @@ void startup_screen(void) {
     while (!end_loop) {
         startup_screen_loop(startup_screen_vars);
     }
+
     previous_screen = current_screen;
-    current_screen = TITLESCREEN;
+    current_screen = next_screen;
 
     delete startup_screen_vars;
 }
@@ -42,6 +43,9 @@ void startup_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+
+    // next screen logic
+    next_screen = TITLESCREEN;
     
     window_handling();
 }
