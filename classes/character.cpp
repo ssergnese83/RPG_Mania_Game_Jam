@@ -65,7 +65,7 @@ float Character::getHeight() { // returns height of hitbox
 
 // setters
 void Character::set_name(std::string name_) {
-    this->name = name_
+    this->name = name_;
 }
 
 void Character::set_hp(int hp_) {
