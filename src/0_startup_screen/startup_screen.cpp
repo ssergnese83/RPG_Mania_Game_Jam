@@ -10,6 +10,7 @@ typedef struct StartupScreenVars {
 
 void startup_screen(void)
 {
+    // Initialize variables for loop
     StartupScreenVars* startup_screen_vars = (StartupScreenVars*)malloc(sizeof(StartupScreenVars));
     startup_screen_vars->mouse_position = {0.0,0.0};
 
@@ -25,11 +26,9 @@ void startup_screen_loop(void* arg_) {
 
     startup_screen_vars->mouse_position = GetMousePosition();
 
-    
-
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        // end_loop = true;
-        // return;
+        end_loop = true;
+        return;
     }
 
     BeginDrawing();

@@ -26,7 +26,7 @@ int main(void)
             menu_screen();
         } else if (current_screen == OVERWORLDSCREEN) {
             overworld_screen();
-        }
+        } else if (current_screen == BATTLESCREEN);
         end_loop = false;
     }
 
@@ -53,6 +53,6 @@ void window_handling(void) {
 
 void draw_debug_stuff(void) {
     DrawRectangle(48, 48, 48, 48, GREEN);
-    DrawText(TextFormat("Mouse X = %f", GetMousePosition().x), 500, 500, 50, RED);
-    DrawText(TextFormat("Mouse Y = %f", GetMousePosition().y), 500, 560, 50, RED);
+    DrawText(TextFormat("Mouse X = %d", (int) GetMousePosition().x), 500, 500, 50, RED);
+    DrawText(TextFormat("Mouse Y = %d", (int) GetMousePosition().y), 500, 560, 50, RED);
 }
