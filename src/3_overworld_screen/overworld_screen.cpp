@@ -5,7 +5,7 @@
 void overworld_screen_loop(void* arg_);
 
 typedef struct OverworldScreenVars {
-    
+    int test;
 } OverworldScreenVars;
 
 void overworld_screen(void)
@@ -22,14 +22,14 @@ void overworld_screen(void)
     current_screen = OVERWORLDSCREEN;
 
     // local vars dealloc
-    delete OverworldScreenVars;
+    delete overworld_screen_vars;
 }
 
 void overworld_screen_loop(void* arg_) {
     OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*) arg_;
 
     //processing
-    
+
     
     // drawing
     BeginDrawing();
