@@ -10,7 +10,7 @@ typedef struct TitleScreenVars {
 
 void title_screen(void)
 {
-    TitleScreenVars* title_screen_vars = (TitleScreenVars*)malloc(sizeof(TitleScreenVars));
+    TitleScreenVars* title_screen_vars = new TitleScreenVars;
     title_screen_vars->play_button = {SCREEN_W/2 - 120, 800, 200, 100};
     title_screen_vars->mouse_position = {0.0,0.0};
 
@@ -19,6 +19,8 @@ void title_screen(void)
     }
     previous_screen = current_screen;
     current_screen = MENUSCREEN;
+
+    delete title_screen_vars;
 }
 
 void title_screen_loop(void* arg_) {

@@ -11,7 +11,7 @@ typedef struct BatttleScreenVars {
 
 void battle_screen(void)
 {
-    BattleScreenVars* battle_screen_vars = (BattleScreenVars*)malloc(sizeof(BattleScreenVars));
+    BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->play_button = {20, 350, 700, 40};
     battle_screen_vars->mouse_position = {0.0,0.0};
 
@@ -20,6 +20,8 @@ void battle_screen(void)
     }
     previous_screen = current_screen;
     current_screen = BATTLESCREEN;
+
+    delete battle_screen_vars;
 }
 
 void battle_screen_loop(void* arg_) {

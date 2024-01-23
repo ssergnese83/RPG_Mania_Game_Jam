@@ -26,7 +26,9 @@ int main(void)
             menu_screen();
         } else if (current_screen == OVERWORLDSCREEN) {
             overworld_screen();
-        } else if (current_screen == BATTLESCREEN);
+        } else if (current_screen == BATTLESCREEN) {
+            battle_screen();
+        }
         end_loop = false;
     }
 

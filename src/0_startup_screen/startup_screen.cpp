@@ -11,7 +11,7 @@ typedef struct StartupScreenVars {
 void startup_screen(void)
 {
     // Initialize variables for loop
-    StartupScreenVars* startup_screen_vars = (StartupScreenVars*)malloc(sizeof(StartupScreenVars));
+    StartupScreenVars* startup_screen_vars = new StartupScreenVars;
     startup_screen_vars->mouse_position = {0.0,0.0};
 
     while (!end_loop) {
@@ -19,6 +19,8 @@ void startup_screen(void)
     }
     previous_screen = current_screen;
     current_screen = TITLESCREEN;
+
+    delete startup_screen_vars;
 }
 
 void startup_screen_loop(void* arg_) {
