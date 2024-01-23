@@ -8,8 +8,7 @@ typedef struct StartupScreenVars {
     Vector2 mouse_position;
 } StartupScreenVars;
 
-void startup_screen(void)
-{
+void startup_screen(void) {
     // Initialize variables for loop
     StartupScreenVars* startup_screen_vars = new StartupScreenVars;
     startup_screen_vars->mouse_position = {0.0,0.0};

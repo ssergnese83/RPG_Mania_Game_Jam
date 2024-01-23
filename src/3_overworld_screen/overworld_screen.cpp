@@ -8,8 +8,7 @@ typedef struct OverworldScreenVars {
     int test;
 } OverworldScreenVars;
 
-void overworld_screen(void)
-{
+void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
 

@@ -9,8 +9,7 @@ typedef struct MenuScreenVars {
     Vector2 mouse_position;
 } MenuScreenVars;
 
-void menu_screen(void)
-{
+void menu_screen(void) {
     MenuScreenVars* menu_screen_vars = new MenuScreenVars;
     menu_screen_vars->play_button = {20, 350, 700, 40};
     menu_screen_vars->mouse_position = {0.0,0.0};

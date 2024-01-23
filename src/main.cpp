@@ -8,8 +8,7 @@ bool debug_mode = false;
 GameScreen current_screen = STARTUP;
 GameScreen previous_screen = STARTUP;
 
-int main(void)
-{
+int main(void) {
     InitWindow(SCREEN_W, SCREEN_H, "game title"); // change title
     
     SetWindowPosition(0, 40);

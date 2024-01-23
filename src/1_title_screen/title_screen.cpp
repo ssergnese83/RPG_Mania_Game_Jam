@@ -8,8 +8,7 @@ typedef struct TitleScreenVars {
     Vector2 mouse_position;
 } TitleScreenVars;
 
-void title_screen(void)
-{
+void title_screen(void) {
     TitleScreenVars* title_screen_vars = new TitleScreenVars;
     title_screen_vars->play_button = {SCREEN_W/2 - 120, 800, 200, 100};
     title_screen_vars->mouse_position = {0.0,0.0};

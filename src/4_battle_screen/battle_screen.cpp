@@ -9,8 +9,7 @@ typedef struct BatttleScreenVars {
     Vector2 mouse_position;
 } BattleScreenVars;
 
-void battle_screen(void)
-{
+void battle_screen(void) {
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->play_button = {20, 350, 700, 40};
     battle_screen_vars->mouse_position = {0.0,0.0};
