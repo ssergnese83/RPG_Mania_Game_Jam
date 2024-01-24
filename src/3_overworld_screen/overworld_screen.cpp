@@ -17,8 +17,6 @@ void overworld_screen(void) {
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
     }
-
-    // next screen logic
     previous_screen = current_screen;
     current_screen = next_screen;
 

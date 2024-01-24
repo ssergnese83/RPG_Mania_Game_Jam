@@ -28,7 +28,7 @@ void battle_screen(void) {
         battle_screen_loop(battle_screen_vars);
     }
     previous_screen = current_screen;
-    current_screen = BATTLESCREEN;
+    current_screen = next_screen;
 
     delete battle_screen_vars;
 }

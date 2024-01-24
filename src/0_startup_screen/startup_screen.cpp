@@ -8,19 +8,16 @@ typedef struct StartupScreenVars {
     Vector2 mouse_position;
 } StartupScreenVars;
 
-void startup_screen(void) {
-    // Initialize variables for loop
-    StartupScreenVars* startup_screen_vars = new StartupScreenVars;
+void startup_screen(void)
+{
+    StartupScreenVars* startup_screen_vars = (StartupScreenVars*)malloc(sizeof(StartupScreenVars));
     startup_screen_vars->mouse_position = {0.0,0.0};
 
     while (!end_loop) {
         startup_screen_loop(startup_screen_vars);
     }
-
     previous_screen = current_screen;
     current_screen = next_screen;
-
-    delete startup_screen_vars;
 }
 
 void startup_screen_loop(void* arg_) {
@@ -28,9 +25,10 @@ void startup_screen_loop(void* arg_) {
 
     startup_screen_vars->mouse_position = GetMousePosition();
 
+    
+
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         end_loop = true;
-        return;
     }
 
     BeginDrawing();
@@ -40,15 +38,12 @@ void startup_screen_loop(void* arg_) {
 
         if (debug_mode) {
             draw_debug_stuff();
-            if (end_loop == true) {
-                return;
-            }
         }
 
     EndDrawing();
 
     // next screen logic
-    next_screen = TITLESCREEN;
+    next_screen = BATTLESCREEN;
     
     window_handling();
 }
