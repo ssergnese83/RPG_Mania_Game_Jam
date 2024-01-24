@@ -2,17 +2,24 @@
 #include <raylib.h>
 #include <stdio.h>
 
+#define RAYGUI_IMPLEMENTATION
+#include <raygui.h>
+
 void menu_screen_loop(void* arg_);
 
 typedef struct MenuScreenVars {
     Vector2 mouse_position;
     Rectangle play_button;
+    Rectangle bounds;
 } MenuScreenVars;
 
 void menu_screen(void) {
+    GuiLoadStyleDefault();
+
     MenuScreenVars* menu_screen_vars = new MenuScreenVars;
     menu_screen_vars->mouse_position = {0.0,0.0};
     menu_screen_vars->play_button = {20, 350, 700, 40};
+    menu_screen_vars->bounds = {50, 50, 500, 500};
 
     while (!end_loop) {
         menu_screen_loop(menu_screen_vars);
@@ -27,6 +34,8 @@ void menu_screen_loop(void* arg_) {
     MenuScreenVars* menu_screen_vars = (MenuScreenVars*) arg_;
 
     menu_screen_vars->mouse_position = GetMousePosition();
+
+    int temp = GuiLabelButton(menu_screen_vars->bounds, "test");
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -45,7 +54,7 @@ void menu_screen_loop(void* arg_) {
 
         if (debug_mode) {
             draw_debug_stuff();
-            if (end_loop == true) {
+            if (end_loop) {
                 return;
             }
         }

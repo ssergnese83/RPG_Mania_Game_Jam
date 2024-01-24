@@ -43,6 +43,9 @@ void title_screen_loop(void* arg_) {
         
         if (debug_mode) {
             draw_debug_stuff();
+            if (end_loop) {
+                return;
+            }
         }
 
     EndDrawing();

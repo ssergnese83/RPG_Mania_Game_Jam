@@ -38,7 +38,7 @@ void overworld_screen_loop(void* arg_) {
         // debug
         if (debug_mode) {
             draw_debug_stuff();
-            if (end_loop == true) {
+            if (end_loop) {
                 return;
             }
         }

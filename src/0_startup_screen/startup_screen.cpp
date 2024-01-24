@@ -8,8 +8,7 @@ typedef struct StartupScreenVars {
     Vector2 mouse_position;
 } StartupScreenVars;
 
-void startup_screen(void)
-{
+void startup_screen(void) {
     StartupScreenVars* startup_screen_vars = (StartupScreenVars*)malloc(sizeof(StartupScreenVars));
     startup_screen_vars->mouse_position = {0.0,0.0};
 
@@ -38,12 +37,15 @@ void startup_screen_loop(void* arg_) {
 
         if (debug_mode) {
             draw_debug_stuff();
+            if (end_loop) {
+                return;
+            }
         }
 
     EndDrawing();
 
     // next screen logic
-    next_screen = BATTLESCREEN;
+    next_screen = TITLESCREEN;
     
     window_handling();
 }

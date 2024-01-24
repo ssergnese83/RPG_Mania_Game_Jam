@@ -3,12 +3,13 @@
 
 #include <raylib.h>
 #include <raymath.h>
+#include <raygui.h>
 
 #include <string> // cpp strings
 
 const int SCREEN_W = 1920;
 const int SCREEN_H = 1080;
-const int BATTLE_TRANSITION_NUM_FRAMES = 180;
+const int BATTLE_TRANSITION_NUM_FRAMES = 150;
 
 extern bool end_loop;
 extern bool debug_mode;

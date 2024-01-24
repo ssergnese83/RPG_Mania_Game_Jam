@@ -20,7 +20,7 @@ void battle_screen(void) {
 
     for (int i = 0; i < BATTLE_TRANSITION_NUM_FRAMES; i++) {
         BeginDrawing();
-            DrawRectangle(SCREEN_W/2 - 2*i, SCREEN_H/2 - 2*i, 4*i, 4*i, BLACK);
+            DrawRectangle(SCREEN_W/2 - 8*i, SCREEN_H/2 - 4.5*i, 16*i, 9*i, BLACK);
         EndDrawing();
     }
 
@@ -44,7 +44,7 @@ void battle_screen_loop(void* arg_) {
 
         if (debug_mode) {
             draw_debug_stuff();
-            if (end_loop == true) {
+            if (end_loop) {
                 return;
             }
         }
