@@ -6,13 +6,19 @@
 void overworld_screen_loop(void* arg_);
 
 typedef struct OverworldScreenVars {
-    int test;
-    Character player;
+    int moveBuffer[4]; // [w,x,y,z] - w is current move, x is next move,
+                       // y is most recent move, z is second most recent move
+
+    
 } OverworldScreenVars;
+
+Character* player;
 
 void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
+
+    player = new Character;
 
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
@@ -22,18 +28,24 @@ void overworld_screen(void) {
 
     // local vars dealloc
     delete overworld_screen_vars;
+    
+    delete player; // eventually move somewhere else, DO NOT KEEP
 }
 
 void overworld_screen_loop(void* arg_) {
     OverworldScreenVars* overworld_screen_vars = (OverworldScreenVars*) arg_;
-    Character player = overworld_screen_vars->player;
+
+    
+
+
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("OVERWORLD SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
 
         // player
-        DrawTexturePro(player.getSprite(0), {0,0,48,48}, player.getHitbox(), {0,0}, 0, WHITE);
+        player->moveCharacter();
+        player->drawCharacter();
 
         // debug
         if (debug_mode) {

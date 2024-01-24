@@ -1,4 +1,4 @@
-// Class implementation for Player
+// Class implementation for Character
 
 #include "character.hpp"
 #include "globals.hpp"
@@ -45,12 +45,12 @@ Rectangle Character::getHitbox() { // returns hitbox
 }
 
 
-Vector2 Character::getPos() { // returns the player position
+Vector2 Character::getPos() { // returns the character position
     Vector2 pos = {this->getHitbox().x, this->getHitbox().y};
     return pos;
 }
 
-Vector2 Character::getCenter() { // returns the player's center position
+Vector2 Character::getCenter() { // returns the character's center position
     Vector2 pos = {this->getPos().x + this->getWidth()/2, this->getPos().y + this->getHeight()/2};
     return pos;
 }
@@ -93,7 +93,7 @@ void Character::setHitbox(Rectangle hitbox_) {
 }
 
 
-void Character::setPos(Vector2 pos_) { // sets player position
+void Character::setPos(Vector2 pos_) { // sets character position
     this->hitbox.x = pos_.x;
     this->hitbox.y = pos_.y;
 }
@@ -116,12 +116,12 @@ void Character::setHeight(float height_) { // sets height of hitbox
 
 //other
 
-void Character::movePlayer() { // moves the player based on input
+void Character::moveCharacter() { // moves the character based on input
     
 }
 
-void Character::drawPlayer() { // draws the player sprite
-    
+void Character::drawCharacter() { // draws the character sprite
+    DrawTexturePro(this->getSprite(0), {0,0,48,48}, this->getHitbox(), {0,0}, 0, WHITE);
 }
 
 void Character::loadSprite() {

@@ -30,8 +30,8 @@ public:
     Texture2D getSprite(int index); // returns sprite
     Rectangle getHitbox(); // returns hitbox
     
-    Vector2 getPos(); // returns the player position
-    Vector2 getCenter(); // returns the player's center position
+    Vector2 getPos(); // returns the character position
+    Vector2 getCenter(); // returns the character's center position
     float getWidth(); // returns width of hitbox
     float getHeight(); // returns height of hitbox
 
@@ -45,15 +45,15 @@ public:
     void setSprite(Texture2D sprite_, int index); // sets sprite
     void setHitbox(Rectangle hitbox_); // sets hitbox
 
-    void setPos(Vector2 pos_); // sets player position
+    void setPos(Vector2 pos_); // sets character position
     void setX(float x_); // sets x position (top left corner of hitbox)
     void setY(float y_); // sets y position (top left corner of hitbox)
     void setWidth(float width_); // sets width of hitbox
     void setHeight(float height_); // sets height of hitbox
 
     //other
-    void movePlayer(); // moves the player based on input
-    void drawPlayer(); // draws the player sprite
+    void moveCharacter(); // moves the character based on input
+    void drawCharacter(); // draws the character sprite
     void loadSprite();
 };
 
