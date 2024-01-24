@@ -13,6 +13,16 @@ void battle_screen(void) {
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->play_button = {20, 350, 700, 40};
     battle_screen_vars->mouse_position = {0.0,0.0};
+    
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    EndDrawing();
+
+    for (int i = 0; i < BATTLE_TRANSITION_NUM_FRAMES; i++) {
+        BeginDrawing();
+            DrawRectangle(SCREEN_W/2 - 2*i, SCREEN_H/2 - 2*i, 4*i, 4*i, BLACK);
+        EndDrawing();
+    }
 
     while (!end_loop) {
         battle_screen_loop(battle_screen_vars);
