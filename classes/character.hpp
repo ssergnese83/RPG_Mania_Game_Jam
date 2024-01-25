@@ -15,6 +15,7 @@ private:
     // code stuff
     Texture2D sprite[6];
     Rectangle hitbox;
+    Direction direction;
     
 public:
     // constructors
@@ -34,6 +35,7 @@ public:
     Vector2 getCenter(); // returns the character's center position
     float getWidth(); // returns width of hitbox
     float getHeight(); // returns height of hitbox
+    Direction getDirection();
 
     // setters
     void set_name(std::string name_);
@@ -50,6 +52,7 @@ public:
     void setY(float y_); // sets y position (top left corner of hitbox)
     void setWidth(float width_); // sets width of hitbox
     void setHeight(float height_); // sets height of hitbox
+    void setDirection(Direction direction_);
 
     //other
     void moveCharacter(); // moves the character based on input
