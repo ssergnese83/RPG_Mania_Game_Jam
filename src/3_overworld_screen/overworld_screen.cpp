@@ -1,5 +1,6 @@
 #include "globals.hpp"
 #include "character.hpp"
+#include "characters.hpp"
 #include <raylib.h>
 #include <stdio.h>
 
@@ -11,16 +12,12 @@ typedef struct OverworldScreenVars {
     
 } OverworldScreenVars;
 
-Character* player;
-
 void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
     overworld_screen_vars->inputCounter = MOVEFRAMES;
-
-    player = new Character;
 
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
@@ -30,8 +27,6 @@ void overworld_screen(void) {
 
     // local vars dealloc
     delete overworld_screen_vars;
-    
-    delete player; // eventually move somewhere else, DO NOT KEEP
 }
 
 void overworld_screen_loop(void* arg_) {

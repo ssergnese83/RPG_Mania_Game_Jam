@@ -50,7 +50,7 @@ void menu_screen_loop(void* arg_) {
     }
 
     if (menu_screen_vars->menu_option <= 0) {
-        if (test_player->get_level() == -1) {
+        if (player->get_level() == -1) {
             menu_screen_vars->menu_option = 1;
         } else {
             menu_screen_vars->menu_option = 0;
@@ -77,7 +77,7 @@ void menu_screen_loop(void* arg_) {
             DrawRectangleRec(menu_screen_vars->options_button, BLUE);
         }
 
-        if (test_player->get_level() == -1) {
+        if (player->get_level() == -1) {
             DrawRectangleRec(menu_screen_vars->continue_button, GRAY);
         }
 

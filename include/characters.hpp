@@ -4,6 +4,6 @@
 #include "globals.hpp"
 #include "character.hpp"
 
-extern Character* test_player;
+extern Character* player;
 
 #endif // characters_hpp
