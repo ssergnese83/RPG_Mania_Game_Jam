@@ -54,6 +54,12 @@ void menu_screen_loop(void* arg_) {
         menu_screen_vars->menu_option = 2;
     }
 
+    if (IsKeyPressed(KEY_ENTER)) {
+        if (menu_screen_vars->menu_option == 0) {
+            end_loop = true;
+        }
+    }
+
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("MENU SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
@@ -71,7 +77,8 @@ void menu_screen_loop(void* arg_) {
         DrawRectangleLinesEx(menu_screen_vars->options_button, 2, BLACK);
 
         DrawText("Continue", 1225, 450, 75, RED);
-        
+        DrawText("New Game", 1225, 650, 75, RED);
+        DrawText("Options", 1225, 850, 75, RED);
 
         if (debug_mode) {
             draw_debug_stuff();
