@@ -24,6 +24,7 @@ int main(void) {
     SetTargetFPS(60);
 
     test_player = new Character;
+    load_player_data();
 
     while (!WindowShouldClose()) {
         if (current_screen == STARTUP) {
@@ -132,7 +133,6 @@ bool load_player_data() {
     test_player->set_name(char_name);
 
     int level_ptr[1];
-    // *level_ptr = test_player->get_level();
 
     bytes_read = read(save_file_descriptor, level_ptr, 4);
     if (bytes_read == -1) {

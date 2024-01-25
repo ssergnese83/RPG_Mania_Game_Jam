@@ -7,7 +7,7 @@
 // constructors
 Character::Character() { // Default constructor
     this->name = "default";
-    this->level = 1;
+    this->level = -1;
     this->hp = 10;
     this->spd = 10;
     this->atk = 10;

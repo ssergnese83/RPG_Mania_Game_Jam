@@ -1,4 +1,5 @@
 #include "globals.hpp"
+#include "characters.hpp"
 #include <raylib.h>
 #include <stdio.h>
 
@@ -48,8 +49,12 @@ void menu_screen_loop(void* arg_) {
         menu_screen_vars->menu_option++;
     }
 
-    if (menu_screen_vars->menu_option < 0) {
-        menu_screen_vars->menu_option = 0;
+    if (menu_screen_vars->menu_option <= 0) {
+        if (test_player->get_level() == -1) {
+            menu_screen_vars->menu_option = 1;
+        } else {
+            menu_screen_vars->menu_option = 0;
+        }
     } else if (menu_screen_vars->menu_option > 2) {
         menu_screen_vars->menu_option = 2;
     }
@@ -70,6 +75,10 @@ void menu_screen_loop(void* arg_) {
             DrawRectangleRec(menu_screen_vars->new_game_button, BLUE);
         } else if (menu_screen_vars->menu_option == 2) {
             DrawRectangleRec(menu_screen_vars->options_button, BLUE);
+        }
+
+        if (test_player->get_level() == -1) {
+            DrawRectangleRec(menu_screen_vars->continue_button, GRAY);
         }
 
         DrawRectangleLinesEx(menu_screen_vars->continue_button, 2, BLACK);
