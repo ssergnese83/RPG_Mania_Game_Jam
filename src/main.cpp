@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <stdio.h>
+#include <fcntl.h>
 #include <iostream>
 
 #include "globals.hpp"
@@ -24,6 +25,11 @@ int main(void) {
 
     test_player = new Character;
     test_player->set_name("Sebastian");
+    test_player->set_level(5);
+
+    printf("%s\n", test_player->get_name().resize(3).c_str());
+
+    // save_player_data();
 
     // test_player->set_name(load_storage_value(STORAGE_POSITION_NAME));
 
@@ -65,9 +71,10 @@ void window_handling(void) {
 
 void draw_debug_stuff(void) {
     DrawRectangle(48, 48, 48, 48, GREEN);
-    DrawText(TextFormat("Character name: %s", test_player->get_name().c_str()), 1200, 50, 50, RED);
-    DrawText(TextFormat("Mouse X = %d", (int) GetMousePosition().x), 1200, 100, 50, RED);
-    DrawText(TextFormat("Mouse Y = %d", (int) GetMousePosition().y), 1200, 150, 50, RED);
+    DrawText(TextFormat("Character name: %s", test_player->get_name().c_str()), 1500, 50, 25, RED);
+    DrawText(TextFormat("Character level: %d", test_player->get_level()), 1500, 75, 25, RED);
+    DrawText(TextFormat("Mouse X = %d", (int) GetMousePosition().x), 1500, 100, 25, RED);
+    DrawText(TextFormat("Mouse Y = %d", (int) GetMousePosition().y), 1500, 125, 25, RED);
 
     Rectangle battle_button = {800, 800, 350, 50};
 
@@ -81,4 +88,12 @@ void draw_debug_stuff(void) {
             DrawRectangleRec(battle_button, YELLOW);
         }
         DrawText("battle_button", 800, 800, 50, RED);
+}
+
+bool save_player_data() {
+    bool success = false;
+    int save_file_descriptor = open(STORAGE_DATA_PATH, O_WRONLY); // O_RDONLY, O_WRONLY, O_RDWR
+    
+    close(save_file_descriptor);
+
 }

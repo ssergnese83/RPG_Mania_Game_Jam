@@ -7,6 +7,7 @@
 // constructors
 Character::Character() { // Default constructor
     this->name = "default";
+    this->level = 1;
     this->hp = 10;
     this->spd = 10;
     this->atk = 10;
@@ -19,6 +20,10 @@ Character::Character() { // Default constructor
 // getters
 std::string Character::get_name() {
     return this->name;
+}
+
+int Character::get_level() {
+    return this->level;
 }
 
 int Character::get_hp() {
@@ -71,6 +76,10 @@ Direction Character::getDirection() {
 // setters
 void Character::set_name(std::string name_) {
     this->name = name_;
+}
+
+void Character::set_level(int level_) {
+    this->level = level_;
 }
 
 void Character::set_hp(int hp_) {

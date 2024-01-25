@@ -7,6 +7,7 @@ class Character {
 private:
     // in game stuff
     std::string name;
+    int level;
     int hp;
     int spd;
     int atk;
@@ -23,6 +24,7 @@ public:
 
     // getters
     std::string get_name();
+    int get_level();
     int get_hp();
     int get_spd();
     int get_atk();
@@ -39,6 +41,7 @@ public:
 
     // setters
     void set_name(std::string name_);
+    void set_level(int level_);
     void set_hp(int hp_);
     void set_spd(int spd_);
     void set_atk(int atk_);

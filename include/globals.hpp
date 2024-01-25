@@ -7,12 +7,12 @@
 
 #include <string> // cpp strings
 
-#define STORAGE_DATA_FILE "storage.data"
+#define STORAGE_DATA_PATH "./save_dat/storage.data"
 
 enum StorageData {STORAGE_POSITION_NAME = 0, STORAGE_POSITION_LEVEL = 1};
 
-static bool save_storage_value(unsigned int position, int value);
-static int load_storage_value(unsigned int position);
+static bool save_player_data();
+static bool load_player_data();
 
 const int SCREEN_W = 1920;
 const int SCREEN_H = 1080;
