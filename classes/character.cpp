@@ -75,6 +75,7 @@ Direction Character::getDirection() {
 
 // setters
 void Character::set_name(std::string name_) {
+    name_.resize(NAME_BUFF_SIZE - 1);
     this->name = name_;
 }
 

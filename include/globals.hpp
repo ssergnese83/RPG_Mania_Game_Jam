@@ -7,7 +7,8 @@
 
 #include <string> // cpp strings
 
-#define STORAGE_DATA_PATH "./save_dat/storage.data"
+#define STORAGE_DATA_PATH "./save_data/save.data"
+#define NAME_BUFF_SIZE 12
 
 enum StorageData {STORAGE_POSITION_NAME = 0, STORAGE_POSITION_LEVEL = 1};
 

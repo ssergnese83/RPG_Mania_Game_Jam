@@ -24,14 +24,6 @@ int main(void) {
     SetTargetFPS(60);
 
     test_player = new Character;
-    test_player->set_name("Sebastian");
-    test_player->set_level(5);
-
-    printf("%s\n", test_player->get_name().resize(3).c_str());
-
-    // save_player_data();
-
-    // test_player->set_name(load_storage_value(STORAGE_POSITION_NAME));
 
     while (!WindowShouldClose()) {
         if (current_screen == STARTUP) {
@@ -91,9 +83,65 @@ void draw_debug_stuff(void) {
 }
 
 bool save_player_data() {
-    bool success = false;
-    int save_file_descriptor = open(STORAGE_DATA_PATH, O_WRONLY); // O_RDONLY, O_WRONLY, O_RDWR
+    int dir = mkdir("./save_data");
     
-    close(save_file_descriptor);
+    int save_file_descriptor = open(STORAGE_DATA_PATH, O_WRONLY | O_CREAT); // O_RDONLY, O_WRONLY, O_RDWR
+    if (save_file_descriptor == -1) {
+        perror("file open/creation error");
+        return false;
+    }
+    printf("save_file_descriptor: %d\n", save_file_descriptor);
 
+    int bytes_written = write(save_file_descriptor, test_player->get_name().c_str(), NAME_BUFF_SIZE);
+    if (bytes_written == -1) {
+        perror("write error");
+        return false;
+    }
+    printf("bytes written 1: %d\n", bytes_written);
+
+    int level_ptr[1];
+    *level_ptr = test_player->get_level();
+
+    bytes_written = write(save_file_descriptor, level_ptr, 4);
+    if (bytes_written == -1) {
+        perror("write error:");
+        return false;
+    }
+    printf("bytes written 2: %d\n", bytes_written);
+
+    close(save_file_descriptor);
+    return true;
+}
+
+bool load_player_data() {
+    
+    int save_file_descriptor = open(STORAGE_DATA_PATH, O_RDONLY); // O_RDONLY, O_WRONLY, O_RDWR
+    if (save_file_descriptor == -1) {
+        perror("file open error");
+        return false;
+    }
+    printf("save_file_descriptor: %d\n", save_file_descriptor);
+
+    char char_name[12];
+    int bytes_read = read(save_file_descriptor, char_name, NAME_BUFF_SIZE);
+    if (bytes_read == -1) {
+        perror("read error");
+        return false;
+    }
+    printf("bytes read 1: %d\n", bytes_read);
+    test_player->set_name(char_name);
+
+    int level_ptr[1];
+    // *level_ptr = test_player->get_level();
+
+    bytes_read = read(save_file_descriptor, level_ptr, 4);
+    if (bytes_read == -1) {
+        perror("read error:");
+        return false;
+    }
+    printf("bytes read 2: %d\n", bytes_read);
+    test_player->set_level(*level_ptr);
+
+    close(save_file_descriptor);
+    return true;
 }
