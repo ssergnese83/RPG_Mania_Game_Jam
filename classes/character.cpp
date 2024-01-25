@@ -13,6 +13,7 @@ Character::Character() { // Default constructor
     this->def = 10;
     this->loadSprite();
     this->hitbox = Rectangle {0, 0, 48, 48}; // Default hitbox is a 48x48 square at (0, 0)
+    this->direction = NONE;
 }
 
 // getters
@@ -61,6 +62,10 @@ float Character::getWidth() { // returns width of hitbox
 
 float Character::getHeight() { // returns height of hitbox
     return this->hitbox.height;
+}
+
+Direction Character::getDirection() {
+    return this->direction;
 }
 
 // setters
@@ -114,10 +119,32 @@ void Character::setHeight(float height_) { // sets height of hitbox
     this->hitbox.height = height_;
 }
 
+void Character::setDirection(Direction direction_) {
+    this->direction = direction_;
+}
+
 //other
 
 void Character::moveCharacter() { // moves the character based on input
     
+    Direction dir = this->getDirection();
+
+    if (dir != NONE) 
+    {
+        if (dir == UP) 
+        {
+            this->setY((this->getPos()).y - (48/MOVEFRAMES));
+        } else if (dir == DOWN) 
+        {
+            this->setY((this->getPos()).y + (48/MOVEFRAMES));
+        } else if (dir == RIGHT) 
+        {
+            this->setX((this->getPos()).x + (48/MOVEFRAMES));
+        } else if (dir == LEFT) 
+        {
+            this->setX((this->getPos()).x - (48/MOVEFRAMES));
+        }
+    }
 }
 
 void Character::drawCharacter() { // draws the character sprite
