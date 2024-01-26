@@ -12,8 +12,8 @@
 
 enum StorageData {STORAGE_POSITION_NAME = 0, STORAGE_POSITION_LEVEL = 1};
 
-static bool save_player_data();
-static bool load_player_data();
+bool save_player_data();
+bool load_player_data();
 
 const int SCREEN_W = 1920;
 const int SCREEN_H = 1080;
