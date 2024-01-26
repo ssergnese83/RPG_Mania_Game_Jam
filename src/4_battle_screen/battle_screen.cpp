@@ -1,4 +1,5 @@
 #include "globals.hpp"
+#include "characters.hpp"
 #include <raylib.h>
 #include <stdio.h>
 
@@ -41,6 +42,8 @@ void battle_screen_loop(void* arg_) {
     BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("BATTLE SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
+
+        DrawRectangleRec(player->get_battle_hitbox(), BLUE);
 
         if (debug_mode) {
             draw_debug_stuff();
