@@ -5,7 +5,7 @@
 
 class Character {
 private:
-    // in game stuff
+    // stats stuff
     std::string name;
     int level;
     int hp;
@@ -13,10 +13,14 @@ private:
     int atk;
     int def;
 
-    // code stuff
-    Texture2D sprite[6];
-    Rectangle hitbox;
+    // overworld stuff
+    Texture2D overworld_sprite[6];
+    Rectangle overworld_hitbox;
     Direction direction;
+
+    // battle stuff
+    Texture2D battle_sprite[6];
+    Rectangle battle_hitbox;
     
 public:
     // constructors
@@ -30,14 +34,22 @@ public:
     int get_atk();
     int get_def();
 
-    Texture2D getSprite(int index); // returns sprite
-    Rectangle getHitbox(); // returns hitbox
+    Texture2D get_overworld_sprite(int index); // returns overworld_sprite
+    Rectangle get_overworld_hitbox(); // returns overworld_hitbox
     
-    Vector2 getPos(); // returns the character position
-    Vector2 getCenter(); // returns the character's center position
-    float getWidth(); // returns width of hitbox
-    float getHeight(); // returns height of hitbox
+    Vector2 get_overworld_pos(); // returns the character position
+    Vector2 get_overworld_center(); // returns the character's center position
+    float get_overworld_width(); // returns width of overworld_hitbox
+    float get_overworld_height(); // returns height of overworld_hitbox
     Direction getDirection();
+
+    Texture2D get_battle_sprite(int index);
+    Rectangle get_battle_hitbox();
+
+    Vector2 get_battle_pos();
+    Vector2 get_battle_center();
+    float get_battle_width(); // returns width of battle_hitbox
+    float get_battle_height(); // returns height of battle_hitbox
 
     // setters
     void set_name(std::string name_);
@@ -47,15 +59,24 @@ public:
     void set_atk(int atk_);
     void set_def(int def_);
 
-    void setSprite(Texture2D sprite_, int index); // sets sprite
-    void setHitbox(Rectangle hitbox_); // sets hitbox
+    void set_overworld_sprite(Texture2D sprite_, int index); // sets sprite
+    void set_overworld_hitbox(Rectangle overworld_hitbox_); // sets overworld_hitbox
 
-    void setPos(Vector2 pos_); // sets character position
-    void setX(float x_); // sets x position (top left corner of hitbox)
-    void setY(float y_); // sets y position (top left corner of hitbox)
-    void setWidth(float width_); // sets width of hitbox
-    void setHeight(float height_); // sets height of hitbox
+    void set_overworld_pos(Vector2 pos_); // sets character position
+    void set_overworld_x(float x_); // sets x position (top left corner of overworld_hitbox)
+    void set_overworld_y(float y_); // sets y position (top left corner of overworld_hitbox)
+    void set_overworld_width(float width_); // sets width of overworld_hitbox
+    void set_overworld_height(float height_); // sets height of overworld_hitbox
     void setDirection(Direction direction_);
+
+    void set_battle_sprite(Texture2D sprite_, int index);
+    void set_battle_hitbox(Rectangle battle_hitbox_);
+
+    void set_battle_pos(Vector2 pos_);
+    void set_battle_x(float x_); // sets x position (top left corner of battle_hitbox)
+    void set_battle_y(float y_); // sets y position (top left corner of battle_hitbox)
+    void set_battle_width(float width_); // sets width of battle_hitbox
+    void set_battle_height(float height_); // sets height of battle_hitbox
 
     //other
     void moveCharacter(); // moves the character based on input

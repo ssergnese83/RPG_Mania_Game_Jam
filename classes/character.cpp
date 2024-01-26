@@ -13,8 +13,10 @@ Character::Character() { // Default constructor
     this->atk = 10;
     this->def = 10;
     this->loadSprite();
-    this->hitbox = Rectangle {0, 0, 48, 48}; // Default hitbox is a 48x48 square at (0, 0)
+    this->overworld_hitbox = Rectangle {0, 0, 48, 48}; // Default overworld_hitbox is a 48x48 square at (0, 0)
     this->direction = NONE;
+
+    this->battle_hitbox = Rectangle {0, 0, 48, 96}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
 }
 
 // getters
@@ -42,35 +44,63 @@ int Character::get_def() {
     return this->def;
 }
 
-Texture2D Character::getSprite(int index) { // returns sprite
-    return this->sprite[index];
+Texture2D Character::get_overworld_sprite(int index) { // returns sprite
+    return this->overworld_sprite[index];
 }
 
-Rectangle Character::getHitbox() { // returns hitbox
-    return this->hitbox;
+Rectangle Character::get_overworld_hitbox() { // returns overworld_hitbox
+    return this->overworld_hitbox;
 }
 
 
-Vector2 Character::getPos() { // returns the character position
-    Vector2 pos = {this->getHitbox().x, this->getHitbox().y};
+Vector2 Character::get_overworld_pos() { // returns the character position
+    Vector2 pos = {this->get_overworld_hitbox().x, this->get_overworld_hitbox().y};
     return pos;
 }
 
-Vector2 Character::getCenter() { // returns the character's center position
-    Vector2 pos = {this->getPos().x + this->getWidth()/2, this->getPos().y + this->getHeight()/2};
+Vector2 Character::get_overworld_center() { // returns the character's center position
+    Vector2 pos = {this->get_overworld_pos().x + this->get_overworld_width()/2, this->get_overworld_pos().y + this->get_overworld_height()/2};
     return pos;
 }
 
-float Character::getWidth() { // returns width of hitbox
-    return this->hitbox.width;
+float Character::get_overworld_width() { // returns width of hitbox
+    return this->overworld_hitbox.width;
 }
 
-float Character::getHeight() { // returns height of hitbox
-    return this->hitbox.height;
+float Character::get_overworld_height() { // returns height of hitbox
+    return this->overworld_hitbox.height;
 }
 
 Direction Character::getDirection() {
     return this->direction;
+}
+
+
+Texture2D Character::get_battle_sprite(int index) { // returns sprite
+    return this->battle_sprite[index];
+}
+
+Rectangle Character::get_battle_hitbox() { // returns overworld_hitbox
+    return this->battle_hitbox;
+}
+
+
+Vector2 Character::get_battle_pos() { // returns the character position
+    Vector2 pos = {this->get_battle_hitbox().x, this->get_battle_hitbox().y};
+    return pos;
+}
+
+Vector2 Character::get_battle_center() { // returns the character's center position
+    Vector2 pos = {this->get_battle_pos().x + this->get_battle_width()/2, this->get_battle_pos().y + this->get_battle_height()/2};
+    return pos;
+}
+
+float Character::get_battle_width() { // returns width of hitbox
+    return this->battle_hitbox.width;
+}
+
+float Character::get_battle_height() { // returns height of hitbox
+    return this->battle_hitbox.height;
 }
 
 // setters
@@ -99,38 +129,69 @@ void Character::set_def(int def_) {
     this->def = def_;
 }
 
-void Character::setSprite(Texture2D sprite_, int index) {
-    this->sprite[index] = sprite_;
+void Character::set_overworld_sprite(Texture2D sprite_, int index) {
+    this->overworld_sprite[index] = sprite_;
 }
 
-void Character::setHitbox(Rectangle hitbox_) {
-    this->hitbox = hitbox_;
+void Character::set_overworld_hitbox(Rectangle hitbox_) {
+    this->overworld_hitbox = hitbox_;
 }
 
 
-void Character::setPos(Vector2 pos_) { // sets character position
-    this->hitbox.x = pos_.x;
-    this->hitbox.y = pos_.y;
+void Character::set_overworld_pos(Vector2 pos_) { // sets character position
+    this->overworld_hitbox.x = pos_.x;
+    this->overworld_hitbox.y = pos_.y;
 }
 
-void Character::setX(float x_) { // sets x position (top left corner of hitbox)
-    this->hitbox.x = x_;
+void Character::set_overworld_x(float x_) { // sets x position (top left corner of hitbox)
+    this->overworld_hitbox.x = x_;
 }
 
-void Character::setY(float y_) { // sets y position (top left corner of hitbox)
-    this->hitbox.y = y_;
+void Character::set_overworld_y(float y_) { // sets y position (top left corner of hitbox)
+    this->overworld_hitbox.y = y_;
 }
 
-void Character::setWidth(float width_) { // sets width of hitbox
-    this->hitbox.width = width_;
+void Character::set_overworld_width(float width_) { // sets width of hitbox
+    this->overworld_hitbox.width = width_;
 }
 
-void Character::setHeight(float height_) { // sets height of hitbox
-    this->hitbox.height = height_;
+void Character::set_overworld_height(float height_) { // sets height of hitbox
+    this->overworld_hitbox.height = height_;
 }
 
 void Character::setDirection(Direction direction_) {
     this->direction = direction_;
+}
+
+
+void Character::set_battle_sprite(Texture2D sprite_, int index) {
+    this->battle_sprite[index] = sprite_;
+}
+
+void Character::set_battle_hitbox(Rectangle hitbox_) {
+    this->battle_hitbox = hitbox_;
+}
+
+
+void Character::set_battle_pos(Vector2 pos_) { // sets character position
+    this->battle_hitbox.x = pos_.x;
+    this->battle_hitbox.y = pos_.y;
+}
+
+void Character::set_battle_x(float x_) { // sets x position (top left corner of hitbox)
+    this->battle_hitbox.x = x_;
+}
+
+void Character::set_battle_y(float y_) { // sets y position (top left corner of hitbox)
+    this->battle_hitbox.y = y_;
+}
+
+void Character::set_battle_width(float width_) { // sets width of hitbox
+    this->battle_hitbox.width = width_;
+}
+
+void Character::set_battle_height(float height_) { // sets height of hitbox
+    this->battle_hitbox.height = height_;
 }
 
 //other
@@ -143,26 +204,26 @@ void Character::moveCharacter() { // moves the character based on input
     {
         if (dir == UP) 
         {
-            this->setY((this->getPos()).y - (48/MOVEFRAMES));
+            this->set_overworld_y((this->get_overworld_pos()).y - (48/MOVEFRAMES));
         } else if (dir == DOWN) 
         {
-            this->setY((this->getPos()).y + (48/MOVEFRAMES));
+            this->set_overworld_y((this->get_overworld_pos()).y + (48/MOVEFRAMES));
         } else if (dir == RIGHT) 
         {
-            this->setX((this->getPos()).x + (48/MOVEFRAMES));
+            this->set_overworld_x((this->get_overworld_pos()).x + (48/MOVEFRAMES));
         } else if (dir == LEFT) 
         {
-            this->setX((this->getPos()).x - (48/MOVEFRAMES));
+            this->set_overworld_x((this->get_overworld_pos()).x - (48/MOVEFRAMES));
         }
     }
 }
 
 void Character::drawCharacter() { // draws the character sprite
-    DrawTexturePro(this->getSprite(0), {0,0,48,48}, this->getHitbox(), {0,0}, 0, WHITE);
+    DrawTexturePro(this->get_overworld_sprite(0), {0,0,48,48}, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
 }
 
 void Character::loadSprite() {
-    this->sprite[0] = LoadTexture("assets/player.png");
+    this->overworld_sprite[0] = LoadTexture("assets/player.png");
     // this->sprite[LEFT] = LoadTexture("assets/charNoSword2.png");
     // this->sprite[RIGHT] = LoadTexture("assets/charNoSword1.png");
     // this->sprite[RIGHT_SWORD] = LoadTexture("assets/charRight.png");
