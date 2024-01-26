@@ -10,7 +10,7 @@ bool end_loop = false;
 bool debug_mode = false;
 
 GameScreen next_screen = STARTUP;
-GameScreen current_screen = MENUSCREEN;
+GameScreen current_screen = STARTUP;
 GameScreen previous_screen = STARTUP;
 
 Character* player;

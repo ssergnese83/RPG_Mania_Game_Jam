@@ -26,7 +26,7 @@ void startup_screen_loop(void* arg_) {
 
     
 
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (IsKeyPressed(KEY_ENTER)) {
         end_loop = true;
     }
 
@@ -34,6 +34,7 @@ void startup_screen_loop(void* arg_) {
         ClearBackground(RAYWHITE);
         DrawText("STARTUP SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
         DrawText("This is where we flash our company logo because we are a company!", 20, 300, 40, RED);
+        DrawText("Press ENTER to skip", 20, 350, 40, RED);
 
         if (debug_mode) {
             draw_debug_stuff();
