@@ -8,7 +8,8 @@ private:
     // stats stuff
     std::string name;
     int level;
-    int hp;
+    int max_hp;
+    int current_hp;
     int spd;
     int atk;
     int def;
@@ -37,7 +38,8 @@ public:
     // getters
     std::string get_name();
     int get_level();
-    int get_hp();
+    int get_max_hp();
+    int get_current_hp();
     int get_spd();
     int get_atk();
     int get_def();
@@ -70,7 +72,8 @@ public:
     // setters
     void set_name(std::string name_);
     void set_level(int level_);
-    void set_hp(int hp_);
+    void set_max_hp(int max_hp_);
+    void set_current_hp(int current_hp_);
     void set_spd(int spd_);
     void set_atk(int atk_);
     void set_def(int def_);

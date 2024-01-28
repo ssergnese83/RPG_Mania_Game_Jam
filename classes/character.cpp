@@ -8,7 +8,8 @@
 Character::Character() { // Default constructor
     this->name = "default";
     this->level = -1;
-    this->hp = 10;
+    this->max_hp = 10;
+    this->current_hp = 10;
     this->spd = 10;
     this->atk = 10;
     this->def = 10;
@@ -36,8 +37,12 @@ int Character::get_level() {
     return this->level;
 }
 
-int Character::get_hp() {
-    return this->hp;
+int Character::get_max_hp() {
+    return this->max_hp;
+}
+
+int Character::get_current_hp() {
+    return this->current_hp;
 }
 
 int Character::get_spd() {
@@ -155,8 +160,12 @@ void Character::set_level(int level_) {
     this->level = level_;
 }
 
-void Character::set_hp(int hp_) {
-    this->hp = hp_;
+void Character::set_max_hp(int max_hp_) {
+    this->max_hp = max_hp_;
+}
+
+void Character::set_current_hp(int current_hp_) {
+    this->max_hp = current_hp_;
 }
 
 void Character::set_spd(int spd_) {
