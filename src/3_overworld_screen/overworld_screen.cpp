@@ -15,7 +15,7 @@ typedef struct OverworldScreenVars {
     // visuals
     Rectangle gameMapRec;
     Texture gameMap;
-    // TODO: collision map
+    Image collisionMap;
 } OverworldScreenVars;
 
 void overworld_screen(void) {
@@ -23,6 +23,9 @@ void overworld_screen(void) {
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
     overworld_screen_vars->gameMapRec = {0, 0, SCREEN_W, SCREEN_H};
     overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
+    // overworld_screen_vars->collisionMap = LoadImage("assets/test_background_collision.bmp");
+    // ExportImageAsCode(overworld_screen_vars->collisionMap, "assets/test_collision.txt");
+
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
     overworld_screen_vars->inputCounter = MOVEFRAMES;
