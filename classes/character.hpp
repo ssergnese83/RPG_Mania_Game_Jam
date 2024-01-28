@@ -20,12 +20,13 @@ private:
     int water;
 
     // overworld stuff
-    Texture2D overworld_sprite[6];
+    Texture2D overworld_sprite;
     Rectangle overworld_hitbox;
     Direction direction;
     bool facing_wall;
     int overworld_grid_x;
     int overworld_grid_y;
+    Direction direction_facing;
 
     // battle stuff
     Texture2D battle_sprite[6];
@@ -60,6 +61,7 @@ public:
     bool get_facing_wall();
     int get_overworld_grid_x();
     int get_overworld_grid_y();
+    Direction get_direction_facing();
 
     Texture2D get_battle_sprite(int index);
     Rectangle get_battle_hitbox();
@@ -93,6 +95,7 @@ public:
     void set_overworld_height(float height_); // sets height of overworld_hitbox
     void set_direction(Direction direction_);
     void set_facing_wall(bool facing_wall_);
+    void set_direction_facing(Direction direction_facing_);
 
     void set_battle_sprite(Texture2D sprite_, int index);
     void set_battle_hitbox(Rectangle battle_hitbox_);

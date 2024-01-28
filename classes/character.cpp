@@ -24,6 +24,7 @@ Character::Character() { // Default constructor
     this->facing_wall = false;
     this->overworld_grid_x = get_overworld_grid_x();
     this->overworld_grid_y = get_overworld_grid_y();
+    this->direction_facing = NONE;
 
     this->battle_hitbox = Rectangle {0, 0, 3*(48), 4*(48)}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
 }
@@ -78,7 +79,7 @@ int Character::get_water() {
 }
 
 Texture2D Character::get_overworld_sprite(int index) { // returns sprite
-    return this->overworld_sprite[index];
+    return this->overworld_sprite;
 }
 
 Rectangle Character::get_overworld_hitbox() { // returns overworld_hitbox
@@ -118,6 +119,10 @@ int Character::get_overworld_grid_x() {
 
 int Character::get_overworld_grid_y() {
     return this->overworld_grid_y;
+}
+
+Direction Character::get_direction_facing() {
+    return this->direction_facing;
 }
 
 
@@ -201,7 +206,7 @@ void Character::set_water(int water_) {
 }
 
 void Character::set_overworld_sprite(Texture2D sprite_, int index) {
-    this->overworld_sprite[index] = sprite_;
+    this->overworld_sprite = sprite_;
 }
 
 void Character::set_overworld_hitbox(Rectangle hitbox_) {
@@ -236,6 +241,10 @@ void Character::set_direction(Direction direction_) {
 
 void Character::set_facing_wall(bool facing_wall_) {
     this->facing_wall = facing_wall_;
+}
+
+void Character::set_direction_facing(Direction direction_facing_) {
+    this->direction_facing = direction_facing_;
 }
 
 
@@ -286,29 +295,49 @@ void Character::moveCharacter() { // moves the character based on input
         if (dir == UP) 
         {
             this->set_overworld_y((this->get_overworld_pos()).y - (48/MOVEFRAMES));
+            this->set_direction_facing(UP);
         } else if (dir == DOWN) 
         {
             this->set_overworld_y((this->get_overworld_pos()).y + (48/MOVEFRAMES));
+            this->set_direction_facing(DOWN);
         } else if (dir == RIGHT) 
         {
             this->set_overworld_x((this->get_overworld_pos()).x + (48/MOVEFRAMES));
+            this->set_direction_facing(RIGHT);
         } else if (dir == LEFT) 
         {
             this->set_overworld_x((this->get_overworld_pos()).x - (48/MOVEFRAMES));
+            this->set_direction_facing(LEFT);
         }
     }
 }
 
 void Character::drawCharacter() { // draws the character sprite
-    DrawTexturePro(this->get_overworld_sprite(0), {0,0,48,48}, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
+    
+    Direction dirfacing = this->get_direction_facing();
+    Rectangle source;
+
+    switch (dirfacing) 
+    {
+        case NONE:
+            source = {0,0,48,48};
+            break;
+        case UP:
+            source = {48,0,48,48};
+            break;
+        case RIGHT:
+            source = {96,0,48,48};
+            break;
+        case DOWN:
+            source = {144,0,48,48};
+            break;
+        case LEFT:
+            source = {192,0,48,48};
+            break;
+    }
+    DrawTexturePro(this->get_overworld_sprite(0), source, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
 }
 
 void Character::loadSprite() {
-    this->overworld_sprite[0] = LoadTexture("assets/player.png");
-    // this->sprite[LEFT] = LoadTexture("assets/charNoSword2.png");
-    // this->sprite[RIGHT] = LoadTexture("assets/charNoSword1.png");
-    // this->sprite[RIGHT_SWORD] = LoadTexture("assets/charRight.png");
-    // this->sprite[LEFT_SWORD] = LoadTexture("assets/charLeft.png");
-    // this->sprite[SWING] = LoadTexture("assets/swing.png");
-    // this->sprite[SWING_RIGHT] = LoadTexture("assets/swing_right.png");
+    this->overworld_sprite = LoadTexture("assets/playersheet.png");
 }

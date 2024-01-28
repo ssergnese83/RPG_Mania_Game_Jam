@@ -92,8 +92,11 @@ void overworld_screen_loop(void* arg_) {
     {
         if (moveBufferPtr[1] == NONE) // only accept if <2 keys are pressed
         {
+            Direction dir = get_direction_from_key(key);
+            
             moveBufferPtr[1] = moveBufferPtr[0]; // shift recent key
-            moveBufferPtr[0] = get_direction_from_key(key); // set as most recent dir
+            moveBufferPtr[0] = dir; // set as most recent dir
+            player->set_direction_facing(dir);
         }
 
         // clear rest of queue
@@ -148,12 +151,13 @@ void overworld_screen_loop(void* arg_) {
         // debug
         if (debug_mode) {
             draw_debug_stuff();
-            DrawText(TextFormat("facing %d", moveBufferPtr[0]), 1500, 150, 25, RED);
+            DrawText(TextFormat("dir moving %d", moveBufferPtr[0]), 1500, 150, 25, RED);
             DrawText(TextFormat("wall? %d", player->get_facing_wall()), 1500, 175, 25, RED);
             DrawText(TextFormat("gridx %d", player->get_overworld_grid_x()), 1500, 200, 25, RED);
             DrawText(TextFormat("gridy %d", player->get_overworld_grid_y()), 1500, 225, 25, RED);
             DrawText(TextFormat("playerx %d", (int)(player->get_overworld_hitbox()).x), 1500, 250, 25, RED);
             DrawText(TextFormat("playery %d", (int)(player->get_overworld_hitbox()).y), 1500, 275, 25, RED);
+            DrawText(TextFormat("dir facing %d", player->get_direction_facing()), 1500, 300, 25, RED);
 
             if (end_loop) {
                 return;
