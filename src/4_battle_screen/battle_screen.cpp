@@ -4,7 +4,9 @@
 #include <stdio.h>
 
 void battle_screen_loop(void* arg_);
+void select_move(void* arg_);
 Music *battleTrack;
+BattleState battle_state = MOVESELECT;
 
 typedef struct BatttleScreenVars {
     Rectangle battle_menu;
@@ -70,6 +72,20 @@ void battle_screen_loop(void* arg_) {
     BattleScreenVars* battle_screen_vars = (BattleScreenVars*) arg_;
 
     battle_screen_vars->mouse_position = GetMousePosition();
+
+    if (battle_state == MOVESELECT) {
+        select_move(battle_screen_vars);
+    } else if (battle_state == MOVEEXECUTE) {
+
+    }
+
+    UpdateMusicStream(*battleTrack);
+    
+    window_handling();
+}
+
+void select_move(void* arg_) {
+    BattleScreenVars* battle_screen_vars = (BattleScreenVars*) arg_;
 
     if (IsKeyPressed(KEY_UP)) {
         battle_screen_vars->menu_option[battle_screen_vars->menu]--;
@@ -266,7 +282,4 @@ void battle_screen_loop(void* arg_) {
         }
 
     EndDrawing();
-    UpdateMusicStream(*battleTrack);
-    
-    window_handling();
 }
