@@ -16,13 +16,13 @@ typedef struct BatttleScreenVars {
 
 void battle_screen(void) {
     // team position setup
-    my_team[0].set_battle_pos({50, 100});
-    my_team[1].set_battle_pos({250, 350});
-    my_team[2].set_battle_pos({450, 600});
+    my_team[0].set_battle_pos({50, 125});
+    my_team[1].set_battle_pos({250, 375});
+    my_team[2].set_battle_pos({450, 625});
 
-    enemy_team[0].set_battle_pos({1470 - 3*(48), 100});
-    enemy_team[1].set_battle_pos({1670 - 3*(48), 350});
-    enemy_team[2].set_battle_pos({1870 - 3*(48), 600});
+    enemy_team[0].set_battle_pos({1470 - 3*(48), 125});
+    enemy_team[1].set_battle_pos({1670 - 3*(48), 375});
+    enemy_team[2].set_battle_pos({1870 - 3*(48), 625});
 
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->battle_menu = {20, 850, 1880, 200};
@@ -152,23 +152,29 @@ void battle_screen_loop(void* arg_) {
         // Fight Scene Stuff
         // Friendly team
         DrawRectangleRec(my_team[0].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("Lvl: %d", my_team[0].get_level()), my_team[0].get_battle_pos().x, my_team[0].get_battle_pos().y - 110, 35, BLUE);
         DrawText(TextFormat("%s", my_team[0].get_name().c_str()), my_team[0].get_battle_pos().x, my_team[0].get_battle_pos().y - 75, 35, BLUE);
         DrawRectangle(my_team[0].get_battle_pos().x, my_team[0].get_battle_pos().y - 30, (my_team[0].get_current_hp() / my_team[0].get_max_hp()) * my_team[0].get_battle_width(), 20, GREEN);
         DrawRectangleRec(my_team[1].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("Lvl: %d", my_team[1].get_level()), my_team[1].get_battle_pos().x, my_team[1].get_battle_pos().y - 110, 35, BLUE);
         DrawText(TextFormat("%s", my_team[1].get_name().c_str()), my_team[1].get_battle_pos().x, my_team[1].get_battle_pos().y - 75, 35, BLUE);
         DrawRectangle(my_team[1].get_battle_pos().x, my_team[1].get_battle_pos().y - 30, (my_team[1].get_current_hp() / my_team[1].get_max_hp()) * my_team[1].get_battle_width(), 20, GREEN);
         DrawRectangleRec(my_team[2].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("Lvl: %d", my_team[2].get_level()), my_team[2].get_battle_pos().x, my_team[2].get_battle_pos().y - 110, 35, BLUE);
         DrawText(TextFormat("%s", my_team[2].get_name().c_str()), my_team[2].get_battle_pos().x, my_team[2].get_battle_pos().y - 75, 35, BLUE);
         DrawRectangle(my_team[2].get_battle_pos().x, my_team[2].get_battle_pos().y - 30, (my_team[2].get_current_hp() / my_team[2].get_max_hp()) * my_team[2].get_battle_width(), 20, GREEN);
 
         // Enemy team
         DrawRectangleRec(enemy_team[0].get_battle_hitbox(), RED);
+        DrawText(TextFormat("Lvl: %d", enemy_team[0].get_level()), enemy_team[0].get_battle_pos().x, enemy_team[0].get_battle_pos().y - 110, 35, RED);
         DrawText(TextFormat("%s", enemy_team[0].get_name().c_str()), enemy_team[0].get_battle_pos().x, enemy_team[0].get_battle_pos().y - 75, 35, RED);
         DrawRectangle(enemy_team[0].get_battle_pos().x, enemy_team[0].get_battle_pos().y - 30, (enemy_team[0].get_current_hp() / enemy_team[0].get_max_hp()) * enemy_team[0].get_battle_width(), 20, GREEN);
         DrawRectangleRec(enemy_team[1].get_battle_hitbox(), RED);
+        DrawText(TextFormat("Lvl: %d", enemy_team[1].get_level()), enemy_team[1].get_battle_pos().x, enemy_team[1].get_battle_pos().y - 110, 35, RED);
         DrawText(TextFormat("%s", enemy_team[1].get_name().c_str()), enemy_team[1].get_battle_pos().x, enemy_team[1].get_battle_pos().y - 75, 35, RED);
         DrawRectangle(enemy_team[1].get_battle_pos().x, enemy_team[1].get_battle_pos().y - 30, (enemy_team[1].get_current_hp() / enemy_team[1].get_max_hp()) * enemy_team[1].get_battle_width(), 20, GREEN);
         DrawRectangleRec(enemy_team[2].get_battle_hitbox(), RED);
+        DrawText(TextFormat("Lvl: %d", enemy_team[2].get_level()), enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 110, 35, RED);
         DrawText(TextFormat("%s", enemy_team[2].get_name().c_str()), enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 75, 35, RED);
         DrawRectangle(enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 30, (enemy_team[2].get_current_hp() / enemy_team[2].get_max_hp()) * enemy_team[2].get_battle_width(), 20, GREEN);
         
