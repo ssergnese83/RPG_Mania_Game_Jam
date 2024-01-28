@@ -22,6 +22,7 @@ private:
     Texture2D overworld_sprite[6];
     Rectangle overworld_hitbox;
     Direction direction;
+    bool facing_wall;
 
     // battle stuff
     Texture2D battle_sprite[6];
@@ -51,7 +52,8 @@ public:
     Vector2 get_overworld_center(); // returns the character's center position
     float get_overworld_width(); // returns width of overworld_hitbox
     float get_overworld_height(); // returns height of overworld_hitbox
-    Direction getDirection();
+    Direction get_direction();
+    bool get_facing_wall();
 
     Texture2D get_battle_sprite(int index);
     Rectangle get_battle_hitbox();
@@ -82,7 +84,8 @@ public:
     void set_overworld_y(float y_); // sets y position (top left corner of overworld_hitbox)
     void set_overworld_width(float width_); // sets width of overworld_hitbox
     void set_overworld_height(float height_); // sets height of overworld_hitbox
-    void setDirection(Direction direction_);
+    void set_direction(Direction direction_);
+    void set_facing_wall(bool facing_wall_);
 
     void set_battle_sprite(Texture2D sprite_, int index);
     void set_battle_hitbox(Rectangle battle_hitbox_);

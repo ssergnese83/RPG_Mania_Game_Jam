@@ -96,8 +96,12 @@ float Character::get_overworld_height() { // returns height of hitbox
     return this->overworld_hitbox.height;
 }
 
-Direction Character::getDirection() {
+Direction Character::get_direction() {
     return this->direction;
+}
+
+bool Character::get_facing_wall() {
+    return this->facing_wall;
 }
 
 
@@ -127,6 +131,8 @@ float Character::get_battle_width() { // returns width of hitbox
 float Character::get_battle_height() { // returns height of hitbox
     return this->battle_hitbox.height;
 }
+
+
 
 // setters
 void Character::set_name(std::string name_) {
@@ -204,8 +210,12 @@ void Character::set_overworld_height(float height_) { // sets height of hitbox
     this->overworld_hitbox.height = height_;
 }
 
-void Character::setDirection(Direction direction_) {
+void Character::set_direction(Direction direction_) {
     this->direction = direction_;
+}
+
+void Character::set_facing_wall(bool facing_wall_) {
+    this->facing_wall = facing_wall_;
 }
 
 
@@ -240,12 +250,12 @@ void Character::set_battle_height(float height_) { // sets height of hitbox
 }
 
 //other
-
 void Character::moveCharacter() { // moves the character based on input
     
-    Direction dir = this->getDirection();
+    Direction dir = this->get_direction();
+    bool facingwall = this->get_facing_wall();
 
-    if (dir != NONE) 
+    if (dir != NONE && !facingwall) 
     {
         if (dir == UP) 
         {

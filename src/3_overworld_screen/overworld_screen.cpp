@@ -104,7 +104,11 @@ void overworld_screen_loop(void* arg_) {
         // player
         if (*inputCounterPtr == 0) 
         {
-            player->setDirection(moveBufferPtr[0]);
+            player->set_direction(moveBufferPtr[0]);
+
+            // check for collision
+            
+
             *inputCounterPtr = MOVEFRAMES;
         }
         player->moveCharacter();
