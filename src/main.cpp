@@ -27,6 +27,7 @@ int main(void) {
     SetTargetFPS(60);
 
     player = new Character;
+    player->set_overworld_pos({288,288});
     load_player_data();
 
     my_team = new Character[3];
