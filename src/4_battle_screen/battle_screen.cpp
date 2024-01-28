@@ -14,6 +14,15 @@ typedef struct BatttleScreenVars {
 } BattleScreenVars;
 
 void battle_screen(void) {
+    // team position setup
+    my_team[0].set_battle_pos({50, 50});
+    my_team[1].set_battle_pos({50, 300});
+    my_team[2].set_battle_pos({50, 550});
+
+    enemy_team[0].set_battle_pos({1870 - 3*(48), 50});
+    enemy_team[1].set_battle_pos({1870 - 3*(48), 300});
+    enemy_team[2].set_battle_pos({1870 - 3*(48), 550});
+
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->battle_menu = {20, 850, 1880, 200};
     battle_screen_vars->menu = 0;
@@ -122,6 +131,12 @@ void battle_screen_loop(void* arg_) {
 
         // Fight Scene Stuff
         DrawRectangleRec(my_team[0].get_battle_hitbox(), BLUE);
+        DrawRectangleRec(my_team[1].get_battle_hitbox(), BLUE);
+        DrawRectangleRec(my_team[2].get_battle_hitbox(), BLUE);
+
+        DrawRectangleRec(enemy_team[0].get_battle_hitbox(), RED);
+        DrawRectangleRec(enemy_team[1].get_battle_hitbox(), RED);
+        DrawRectangleRec(enemy_team[2].get_battle_hitbox(), RED);
         
         // Menu Stuff
         DrawRectangleLinesEx(battle_screen_vars->battle_menu, 3, BLUE);
