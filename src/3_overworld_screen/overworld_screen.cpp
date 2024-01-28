@@ -12,11 +12,17 @@ typedef struct OverworldScreenVars {
     Direction moveBuffer[2]; // [x, y] - x is most recent move, y is second most recent move
     int inputCounter; // number of frames before next move
     
+    // visuals
+    Rectangle gameMapRec;
+    Texture gameMap;
+    // TODO: collision map
 } OverworldScreenVars;
 
 void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
+    overworld_screen_vars->gameMapRec = {0, 0, SCREEN_W, SCREEN_H};
+    overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
     overworld_screen_vars->inputCounter = MOVEFRAMES;
@@ -86,6 +92,10 @@ void overworld_screen_loop(void* arg_) {
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        // Map drawing
+        DrawTexturePro(overworld_screen_vars->gameMap, {0,0,1920,1080}, overworld_screen_vars->gameMapRec, {0,0}, 0, WHITE);
+
         DrawText("OVERWORLD SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
 
         // player
