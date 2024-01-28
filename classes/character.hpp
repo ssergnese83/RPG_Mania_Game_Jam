@@ -23,6 +23,8 @@ private:
     Rectangle overworld_hitbox;
     Direction direction;
     bool facing_wall;
+    int overworld_grid_x;
+    int overworld_grid_y;
 
     // battle stuff
     Texture2D battle_sprite[6];
@@ -54,6 +56,8 @@ public:
     float get_overworld_height(); // returns height of overworld_hitbox
     Direction get_direction();
     bool get_facing_wall();
+    int get_overworld_grid_x();
+    int get_overworld_grid_y();
 
     Texture2D get_battle_sprite(int index);
     Rectangle get_battle_hitbox();
@@ -97,6 +101,7 @@ public:
     void set_battle_height(float height_); // sets height of battle_hitbox
 
     //other
+    void updateCharacter();
     void moveCharacter(); // moves the character based on input
     void drawCharacter(); // draws the character sprite
     void loadSprite();

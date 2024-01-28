@@ -29,6 +29,7 @@ int main(void) {
 
     player = new Character;
     player->set_overworld_pos({288,288});
+    player->updateCharacter();
     load_player_data();
 
     my_team = new Character[3];

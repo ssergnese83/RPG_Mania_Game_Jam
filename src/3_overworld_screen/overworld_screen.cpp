@@ -7,10 +7,13 @@
 void overworld_screen_loop(void* arg_);
 int get_key_from_direction(Direction dir);
 Direction get_direction_from_key(int key);
+int get_differential_from_direction(Direction dir);
 
 typedef struct OverworldScreenVars {
     Direction moveBuffer[2]; // [x, y] - x is most recent move, y is second most recent move
     int inputCounter; // number of frames before next move
+    // int player_grid_x; // x location in terms of grid squares (48x48)
+    // int player_grid_y; // y location in terms of grid squares (48x48)
     
     // visuals
     Rectangle gameMapRec;
@@ -25,6 +28,10 @@ void overworld_screen(void) {
     overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
     // overworld_screen_vars->collisionMap = LoadImage("assets/test_collision.bmp");
     // ExportImageAsCode(overworld_screen_vars->collisionMap, "assets/test_collision.txt");
+
+    // player->updateCharacter();
+    // overworld_screen_vars->player_grid_x = player->get_overworld_grid_x();
+    // overworld_screen_vars->player_grid_y = player->get_overworld_grid_y();
 
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
@@ -45,6 +52,8 @@ void overworld_screen_loop(void* arg_) {
 
     Direction* moveBufferPtr = overworld_screen_vars->moveBuffer;
     int* inputCounterPtr = &(overworld_screen_vars->inputCounter);
+    // int* playerGridX = &(overworld_screen_vars->player_grid_x);
+    // int* playerGridY = &(overworld_screen_vars->player_grid_y);
 
 
     // movement
@@ -102,12 +111,23 @@ void overworld_screen_loop(void* arg_) {
         DrawText("OVERWORLD SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
 
         // player
+        player->updateCharacter();
+
         if (*inputCounterPtr == 0) 
         {
             player->set_direction(moveBufferPtr[0]);
 
             // check for collision
-            
+            int playerGridIndex = (player->get_overworld_grid_x() * 48) + (player->get_overworld_grid_y() * 48);
+            int differentialIndex = get_differential_from_direction(moveBufferPtr[0]);
+            if (collision_bytes[playerGridIndex + differentialIndex] == 0x00) 
+            {
+                // wall in front of player
+                player->set_facing_wall(true);
+            } else 
+            {
+                player->set_facing_wall(false);
+            }
 
             *inputCounterPtr = MOVEFRAMES;
         }
@@ -176,4 +196,29 @@ Direction get_direction_from_key(int key)
     }
 
     return NONE;
+}
+
+int get_differential_from_direction(Direction dir) 
+{
+    switch (dir) 
+    {
+        case NONE:
+            break;
+        case UP:
+            return (1920);
+            break;
+        case RIGHT:
+            return (1*48);
+            break;
+        case DOWN:
+            return (1920);
+            break;
+        case LEFT:
+            return (-1*48);
+            break;
+        default:
+            return 0;
+    }
+
+    return 0;
 }

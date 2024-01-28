@@ -20,6 +20,9 @@ Character::Character() { // Default constructor
     this->loadSprite();
     this->overworld_hitbox = Rectangle {0, 0, 48, 48}; // Default overworld_hitbox is a 48x48 square at (0, 0)
     this->direction = NONE;
+    this->facing_wall = false;
+    this->overworld_grid_x = get_overworld_grid_x();
+    this->overworld_grid_y = get_overworld_grid_y();
 
     this->battle_hitbox = Rectangle {0, 0, 3*(48), 4*(48)}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
 }
@@ -102,6 +105,14 @@ Direction Character::get_direction() {
 
 bool Character::get_facing_wall() {
     return this->facing_wall;
+}
+
+int Character::get_overworld_grid_x() {
+    return this->overworld_grid_x;
+}
+
+int Character::get_overworld_grid_y() {
+    return this->overworld_grid_x;
 }
 
 
@@ -250,6 +261,12 @@ void Character::set_battle_height(float height_) { // sets height of hitbox
 }
 
 //other
+void Character::updateCharacter() {
+    // calculate grid coords
+    this->overworld_grid_x = (int)((this->get_overworld_pos()).x/48);
+    this->overworld_grid_y = (int)((this->get_overworld_pos()).y/48);
+}
+
 void Character::moveCharacter() { // moves the character based on input
     
     Direction dir = this->get_direction();
