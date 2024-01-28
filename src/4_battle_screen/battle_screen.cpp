@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 void battle_screen_loop(void* arg_);
+Music* battleTrack;
 
 typedef struct BatttleScreenVars {
     Rectangle battle_menu;
@@ -26,6 +27,10 @@ void battle_screen(void) {
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->battle_menu = {20, 850, 1880, 200};
     battle_screen_vars->menu = 0;
+
+    battleTrack = new Music;
+    *battleTrack = LoadMusicStream("assets/Music/Battle_WIP.mp3");
+    PlayMusicStream(*battleTrack);
 
     battle_screen_vars->menu_option[0] = 0;
     battle_screen_vars->num_options_menu[0] = 4;
@@ -54,6 +59,9 @@ void battle_screen(void) {
     }
     previous_screen = current_screen;
     current_screen = next_screen;
+
+    StopMusicStream(*battleTrack);
+    UnloadMusicStream(*battleTrack);
 
     delete battle_screen_vars;
 }
@@ -217,6 +225,7 @@ void battle_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+    UpdateMusicStream(*battleTrack);
     
     window_handling();
 }
