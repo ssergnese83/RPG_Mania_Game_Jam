@@ -39,4 +39,7 @@ void menu_screen(void); // menu screen located in 2_menu_screen/game_screen.cpp
 void overworld_screen(void); // overworld screen located in 3_overworld_screen/overworld_screen.cpp
 void battle_screen(void); // battle screen located in 4_battle_screen/battle_screen.cpp
 
+Music *titleTrack;
+Music *battleTrack;
+
 #endif // globals_hpp
