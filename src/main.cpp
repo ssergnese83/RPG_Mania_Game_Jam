@@ -5,6 +5,7 @@
 
 #include "globals.hpp"
 #include "character.hpp"
+#include "characters.hpp"
 
 bool end_loop = false;
 bool debug_mode = false;
@@ -25,6 +26,9 @@ int main(void) {
 
     player = new Character;
     load_player_data();
+
+    my_team = new Character[3];
+    enemy_team = new Character[3];
 
     while (!WindowShouldClose()) {
         if (current_screen == STARTUP) {
@@ -74,6 +78,12 @@ void draw_debug_stuff(void) {
     if(CheckCollisionPointRec(GetMousePosition(), battle_button)) {
             DrawRectangleRec(battle_button, GREEN);
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                my_team[0].set_name("friendly 1");
+                my_team[1].set_name("friendly 2");
+                my_team[2].set_name("friendly 3");
+                enemy_team[0].set_name("enemy 1");
+                enemy_team[1].set_name("enemy 2");
+                enemy_team[2].set_name("enemy 3");
                 next_screen = BATTLESCREEN;
                 end_loop = true;
             }
