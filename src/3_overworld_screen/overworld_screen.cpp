@@ -12,14 +12,15 @@ int get_differential_from_direction(Direction dir);
 typedef struct OverworldScreenVars {
     Direction moveBuffer[2]; // [x, y] - x is most recent move, y is second most recent move
     int inputCounter; // number of frames before next move
-    // int player_grid_x; // x location in terms of grid squares (48x48)
-    // int player_grid_y; // y location in terms of grid squares (48x48)
     
     // visuals
     Rectangle gameMapRec;
     Texture gameMap;
     Image collisionMap;
     Color* collisionColors;
+
+    // NPCs
+    Character* npc1;
 } OverworldScreenVars;
 
 void overworld_screen(void) {
@@ -30,15 +31,12 @@ void overworld_screen(void) {
 
     overworld_screen_vars->collisionMap = LoadImage("assets/maps/test_background.png");
     overworld_screen_vars->collisionColors = LoadImageColors(overworld_screen_vars->collisionMap);
-    
-
-    // player->updateCharacter();
-    // overworld_screen_vars->player_grid_x = player->get_overworld_grid_x();
-    // overworld_screen_vars->player_grid_y = player->get_overworld_grid_y();
 
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
     overworld_screen_vars->inputCounter = MOVEFRAMES;
+
+    overworld_screen_vars->npc1 = new Character; // TODO move to characters.hpp
 
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
@@ -58,8 +56,6 @@ void overworld_screen_loop(void* arg_) {
     int* inputCounterPtr = &(overworld_screen_vars->inputCounter);
     Color* colorPtr = (overworld_screen_vars->collisionColors);
 
-    // int* playerGridX = &(overworld_screen_vars->player_grid_x);
-    // int* playerGridY = &(overworld_screen_vars->player_grid_y);
 
 
     // movement
@@ -158,6 +154,7 @@ void overworld_screen_loop(void* arg_) {
             DrawText(TextFormat("playerx %d", (int)(player->get_overworld_hitbox()).x), 1500, 250, 25, RED);
             DrawText(TextFormat("playery %d", (int)(player->get_overworld_hitbox()).y), 1500, 275, 25, RED);
             DrawText(TextFormat("dir facing %d", player->get_direction_facing()), 1500, 300, 25, RED);
+            DrawText(TextFormat("looking at %d %d", player->get_looking_at_x(), player->get_looking_at_y()), 1500, 325, 25, RED);
 
             if (end_loop) {
                 return;
