@@ -112,7 +112,7 @@ int Character::get_overworld_grid_x() {
 }
 
 int Character::get_overworld_grid_y() {
-    return this->overworld_grid_x;
+    return this->overworld_grid_y;
 }
 
 
@@ -263,8 +263,8 @@ void Character::set_battle_height(float height_) { // sets height of hitbox
 //other
 void Character::updateCharacter() {
     // calculate grid coords
-    this->overworld_grid_x = (int)((this->get_overworld_pos()).x/48);
-    this->overworld_grid_y = (int)((this->get_overworld_pos()).y/48);
+    this->overworld_grid_x = (int)((this->get_overworld_hitbox()).x/48);
+    this->overworld_grid_y = (int)((this->get_overworld_hitbox()).y/48);
 }
 
 void Character::moveCharacter() { // moves the character based on input

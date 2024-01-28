@@ -4,7 +4,6 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <raygui.h>
-#include "collision_bytes.hpp"
 
 #include <string> // cpp strings
 

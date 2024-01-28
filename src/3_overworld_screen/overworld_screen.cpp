@@ -19,6 +19,7 @@ typedef struct OverworldScreenVars {
     Rectangle gameMapRec;
     Texture gameMap;
     Image collisionMap;
+    Color* collisionColors;
 } OverworldScreenVars;
 
 void overworld_screen(void) {
@@ -26,8 +27,10 @@ void overworld_screen(void) {
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
     overworld_screen_vars->gameMapRec = {0, 0, SCREEN_W, SCREEN_H};
     overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
-    // overworld_screen_vars->collisionMap = LoadImage("assets/test_collision.bmp");
-    // ExportImageAsCode(overworld_screen_vars->collisionMap, "assets/test_collision.txt");
+
+    overworld_screen_vars->collisionMap = LoadImage("assets/test_background.png");
+    overworld_screen_vars->collisionColors = LoadImageColors(overworld_screen_vars->collisionMap);
+    
 
     // player->updateCharacter();
     // overworld_screen_vars->player_grid_x = player->get_overworld_grid_x();
@@ -44,6 +47,7 @@ void overworld_screen(void) {
     current_screen = next_screen;
 
     // local vars dealloc
+    UnloadImageColors(overworld_screen_vars->collisionColors); // remove later
     delete overworld_screen_vars;
 }
 
@@ -52,6 +56,8 @@ void overworld_screen_loop(void* arg_) {
 
     Direction* moveBufferPtr = overworld_screen_vars->moveBuffer;
     int* inputCounterPtr = &(overworld_screen_vars->inputCounter);
+    Color* colorPtr = (overworld_screen_vars->collisionColors);
+
     // int* playerGridX = &(overworld_screen_vars->player_grid_x);
     // int* playerGridY = &(overworld_screen_vars->player_grid_y);
 
@@ -118,25 +124,37 @@ void overworld_screen_loop(void* arg_) {
             player->set_direction(moveBufferPtr[0]);
 
             // check for collision
-            int playerGridIndex = (player->get_overworld_grid_x() * 48) + (player->get_overworld_grid_y() * 48);
+            int playerGridIndex = 48 * ((player->get_overworld_grid_y() * 1920) + player->get_overworld_grid_x());
             int differentialIndex = get_differential_from_direction(moveBufferPtr[0]);
-            if (collision_bytes[playerGridIndex + differentialIndex] == 0x00) 
+            if (colorPtr[playerGridIndex + differentialIndex].r == 0x00) 
             {
-                // wall in front of player
                 player->set_facing_wall(true);
             } else 
             {
                 player->set_facing_wall(false);
             }
 
+
+            DrawRectangle((playerGridIndex + differentialIndex)%1920, (playerGridIndex + differentialIndex)/1920, 10, 10, ORANGE);
+
             *inputCounterPtr = MOVEFRAMES;
         }
         player->moveCharacter();
         player->drawCharacter();
 
+        
+        
+        
         // debug
         if (debug_mode) {
             draw_debug_stuff();
+            DrawText(TextFormat("facing %d", moveBufferPtr[0]), 1500, 150, 25, RED);
+            DrawText(TextFormat("wall? %d", player->get_facing_wall()), 1500, 175, 25, RED);
+            DrawText(TextFormat("gridx %d", player->get_overworld_grid_x()), 1500, 200, 25, RED);
+            DrawText(TextFormat("gridy %d", player->get_overworld_grid_y()), 1500, 225, 25, RED);
+            DrawText(TextFormat("playerx %d", (int)(player->get_overworld_hitbox()).x), 1500, 250, 25, RED);
+            DrawText(TextFormat("playery %d", (int)(player->get_overworld_hitbox()).y), 1500, 275, 25, RED);
+
             if (end_loop) {
                 return;
             }
@@ -205,16 +223,16 @@ int get_differential_from_direction(Direction dir)
         case NONE:
             break;
         case UP:
-            return (1920);
+            return -(1920*48);
             break;
         case RIGHT:
-            return (1*48);
+            return (48);
             break;
         case DOWN:
-            return (1920);
+            return (1920*48);
             break;
         case LEFT:
-            return (-1*48);
+            return -(48);
             break;
         default:
             return 0;
