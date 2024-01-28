@@ -20,7 +20,7 @@ private:
     int water;
 
     // overworld stuff
-    Texture2D overworld_sprite[6];
+    Texture2D overworld_sprite;
     Rectangle overworld_hitbox;
     Direction direction;
     bool facing_wall;
