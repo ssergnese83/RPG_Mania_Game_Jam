@@ -20,6 +20,7 @@ Character* enemy_team;
 
 int main(void) {
     InitWindow(SCREEN_W, SCREEN_H, "game title"); // change title
+    InitAudioDevice();
     
     SetWindowPosition(0, 40);
     SetWindowState(FLAG_WINDOW_RESIZABLE);
@@ -47,7 +48,7 @@ int main(void) {
         }
         end_loop = false;
     }
-
+    CloseAudioDevice();
     CloseWindow();
 
     return 0;
