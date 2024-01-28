@@ -116,7 +116,7 @@ void battle_screen_loop(void* arg_) {
                     battle_screen_vars->num_options_menu[2] = 1;
                 } else if (battle_screen_vars->menu_option[1] == 1) { // if MAGIC is selected
                     // DISPLAY ALL MAGIC OPTIONS
-                    battle_screen_vars->num_options_menu[1] = 1;
+                    battle_screen_vars->num_options_menu[2] = 1;
                 } else if (battle_screen_vars->menu_option[2] == 2) { //  if TECHNIQUE is selected
                     // DISPLAY ALL TECHNIQUE OPTIONS
                     battle_screen_vars->num_options_menu[2] = 1;
@@ -182,13 +182,14 @@ void battle_screen_loop(void* arg_) {
         DrawRectangleLinesEx(battle_screen_vars->battle_menu, 3, BLUE);
 
         // Menu 0 stuff 
-        if (battle_screen_vars->menu_option[0] == 0) { // FIGHT
+        // selection triangle 0
+        if (battle_screen_vars->menu_option[0] == 0) {
             DrawTriangle({30, 910}, {65, 885}, {30, 860}, BLUE);
-        } else if (battle_screen_vars->menu_option[0] == 1) { // PARTY
+        } else if (battle_screen_vars->menu_option[0] == 1) {
             DrawTriangle({30, 955}, {65, 930}, {30, 905}, BLUE);
-        } else if (battle_screen_vars->menu_option[0] == 2) { // ITEMS
+        } else if (battle_screen_vars->menu_option[0] == 2) {
             DrawTriangle({30, 1000}, {65, 975}, {30, 950}, BLUE);
-        } else if (battle_screen_vars->menu_option[0] == 3) { // RUN
+        } else if (battle_screen_vars->menu_option[0] == 3) {
             DrawTriangle({30, 1045}, {65, 1020}, {30, 995}, BLUE);
         }
 
@@ -198,17 +199,19 @@ void battle_screen_loop(void* arg_) {
         DrawText("RUN", 75, 995, 50, BLUE);
 
         // Menu 1 stuff
-        if (battle_screen_vars->menu == 1) {
-            if (battle_screen_vars->menu_option[1] == 0) { // MELEE / PARTY MEMBER 3 / ITEM 0
+        // selection triangle 1
+        
+        if (battle_screen_vars->menu >= 1) {
+            if (battle_screen_vars->menu_option[1] == 0) {
                 DrawTriangle({300, 910}, {335, 885}, {300, 860}, BLUE);
-            } else if (battle_screen_vars->menu_option[1] == 1) { // MAGIC / PARTY MEMBER 4 / ITEM 1
+            } else if (battle_screen_vars->menu_option[1] == 1) {
                 DrawTriangle({300, 955}, {335, 930}, {300, 905}, BLUE);
-            } else if (battle_screen_vars->menu_option[1] == 2) { // TECHNIQUE / PARTY MEMBER 5 / ITEM 2
+            } else if (battle_screen_vars->menu_option[1] == 2) {
                 DrawTriangle({300, 1000}, {335, 975}, {300, 950}, BLUE);
-            } else if (battle_screen_vars->menu_option[1] == 3) { // 0 / PARTY MEMBER 6 / ITEM 3
+            } else if (battle_screen_vars->menu_option[1] == 3) {
                 DrawTriangle({300, 1045}, {335, 1020}, {300, 995}, BLUE);
             }
-
+        
             if (battle_screen_vars->menu_option[0] == 0) { // FIGHT
                 DrawText("MELEE", 345, 860, 50, BLUE);
                 DrawText("MAGIC", 345, 905, 50, BLUE);
@@ -219,6 +222,38 @@ void battle_screen_loop(void* arg_) {
                         break;
                     }
                     DrawText(TextFormat("%s", my_team[i].get_name().c_str()), 345, 860 + i*45, 50, BLUE);
+                }
+            }
+        }
+
+        // menu 2 stuff
+        if (battle_screen_vars->menu >= 2) {
+            // selection triangle 2
+            if (battle_screen_vars->menu_option[2] == 0) {
+                DrawTriangle({670, 910}, {705, 885}, {670, 860}, BLUE);
+            } else if (battle_screen_vars->menu_option[2] == 1) {
+                DrawTriangle({670, 955}, {705, 930}, {670, 905}, BLUE);
+            } else if (battle_screen_vars->menu_option[2] == 2) {
+                DrawTriangle({670, 1000}, {705, 975}, {670, 950}, BLUE);
+            } else if (battle_screen_vars->menu_option[2] == 3) {
+                DrawTriangle({670, 1045}, {705, 1020}, {670, 995}, BLUE);
+            }
+
+            if (battle_screen_vars->menu_option[0] == 0) { // FIGHT
+                if (battle_screen_vars->menu_option[1] == 0) { // MELEE
+                    DrawText("BASIC", 715, 860, 50, BLUE);
+                } else if (battle_screen_vars->menu_option[1] == 1) { // MAGIC
+                    DrawText("BASIC", 715, 860, 50, BLUE);
+                } else if (battle_screen_vars->menu_option[1] == 2) { // TECHNIQUE
+                    DrawText("BASIC", 715, 860, 50, BLUE);
+                }
+            } else if (battle_screen_vars->menu_option[0] == 1) { // PARTY
+                if (battle_screen_vars->menu_option[1] == 0) { // PARTY0
+                    // DrawText("BASIC", 715, 860, 50, BLUE);
+                } else if (battle_screen_vars->menu_option[1] == 1) { // PARTY1
+                    // DrawText("BASIC", 715, 860, 50, BLUE);
+                } else if (battle_screen_vars->menu_option[1] == 2) { // PARTY2
+                    // DrawText("BASIC", 715, 860, 50, BLUE);
                 }
             }
         }
