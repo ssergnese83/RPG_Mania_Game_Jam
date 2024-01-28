@@ -2,6 +2,7 @@
 #include <raylib.h>
 
 void title_screen_loop(void* arg_);
+Music *titleTrack;
 
 typedef struct TitleScreenVars {
     Vector2 mouse_position;

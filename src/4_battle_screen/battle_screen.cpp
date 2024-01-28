@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 void battle_screen_loop(void* arg_);
+Music *battleTrack;
 
 typedef struct BatttleScreenVars {
     Rectangle battle_menu;
