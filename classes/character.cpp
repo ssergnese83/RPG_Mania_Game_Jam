@@ -24,6 +24,7 @@ Character::Character() { // Default constructor
     this->facing_wall = false;
     this->overworld_grid_x = get_overworld_grid_x();
     this->overworld_grid_y = get_overworld_grid_y();
+    this->direction_facing = NONE;
 
     this->battle_hitbox = Rectangle {0, 0, 3*(48), 4*(48)}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
 }
@@ -118,6 +119,10 @@ int Character::get_overworld_grid_x() {
 
 int Character::get_overworld_grid_y() {
     return this->overworld_grid_y;
+}
+
+Direction Character::get_direction_facing() {
+    return this->direction_facing;
 }
 
 
@@ -236,6 +241,10 @@ void Character::set_direction(Direction direction_) {
 
 void Character::set_facing_wall(bool facing_wall_) {
     this->facing_wall = facing_wall_;
+}
+
+void Character::set_direction_facing(Direction direction_facing_) {
+    this->direction_facing = direction_facing_;
 }
 
 
