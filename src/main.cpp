@@ -84,11 +84,18 @@ void draw_debug_stuff(void) {
             DrawRectangleRec(battle_button, GREEN);
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 my_team[0].set_name("friendly 1");
+                my_team[0].set_level(1);
                 my_team[1].set_name("friendly 2");
+                my_team[1].set_level(1);
                 my_team[2].set_name("friendly 3");
+                my_team[2].set_level(1);
+                
                 enemy_team[0].set_name("enemy 1");
+                enemy_team[0].set_level(1);
                 enemy_team[1].set_name("enemy 2");
+                enemy_team[1].set_level(1);
                 enemy_team[2].set_name("enemy 3");
+                enemy_team[2].set_level(1);
                 next_screen = BATTLESCREEN;
                 end_loop = true;
             }

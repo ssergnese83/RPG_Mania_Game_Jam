@@ -15,13 +15,13 @@ typedef struct BatttleScreenVars {
 
 void battle_screen(void) {
     // team position setup
-    my_team[0].set_battle_pos({50, 50});
-    my_team[1].set_battle_pos({50, 300});
-    my_team[2].set_battle_pos({50, 550});
+    my_team[0].set_battle_pos({50, 100});
+    my_team[1].set_battle_pos({250, 350});
+    my_team[2].set_battle_pos({450, 600});
 
-    enemy_team[0].set_battle_pos({1870 - 3*(48), 50});
-    enemy_team[1].set_battle_pos({1870 - 3*(48), 300});
-    enemy_team[2].set_battle_pos({1870 - 3*(48), 550});
+    enemy_team[0].set_battle_pos({1470 - 3*(48), 100});
+    enemy_team[1].set_battle_pos({1670 - 3*(48), 350});
+    enemy_team[2].set_battle_pos({1870 - 3*(48), 600});
 
     BattleScreenVars* battle_screen_vars = new BattleScreenVars;
     battle_screen_vars->battle_menu = {20, 850, 1880, 200};
@@ -63,80 +63,106 @@ void battle_screen_loop(void* arg_) {
 
     battle_screen_vars->mouse_position = GetMousePosition();
 
-    if (battle_screen_vars->menu == 0) {
-        if (IsKeyPressed(KEY_UP)) {
-            battle_screen_vars->menu_option[0]--;
-        } else if (IsKeyPressed(KEY_DOWN)) {
-            battle_screen_vars->menu_option[0]++;
-        }
+    if (IsKeyPressed(KEY_UP)) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu]--;
+    } else if (IsKeyPressed(KEY_DOWN)) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu]++;
+    } else if (IsKeyPressed(KEY_RIGHT)) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu] += 3;
+    } else if (IsKeyPressed(KEY_LEFT)) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu] -= 3;
+    }
 
-        if (battle_screen_vars->menu_option[0] < 0) {
-            battle_screen_vars->menu_option[0] = 0;
-        } else if (battle_screen_vars->menu_option[0] > battle_screen_vars->num_options_menu[0] - 1) {
-            battle_screen_vars->menu_option[0] = battle_screen_vars->num_options_menu[0] - 1;
-        }
+    if (battle_screen_vars->menu_option[battle_screen_vars->menu] < 0) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu] = 0;
+    } else if (battle_screen_vars->menu_option[battle_screen_vars->menu] > battle_screen_vars->num_options_menu[battle_screen_vars->menu] - 1) {
+        battle_screen_vars->menu_option[battle_screen_vars->menu] = battle_screen_vars->num_options_menu[battle_screen_vars->menu] - 1;
+    }
 
-        if (IsKeyPressed(KEY_ENTER)) {
-            if (battle_screen_vars->menu_option[0] == 0) { // if FIGHT is selected
-                // only 3 options on menu 1
+    if (IsKeyPressed(KEY_ENTER)) {
+
+        if (battle_screen_vars->menu == 0) { // if (FIGHT & PARTY & ITEMS & ESCAPE) menu
+            if (battle_screen_vars->menu_option[0] == 0) { // FIGHT selected
+                battle_screen_vars->num_options_menu[1] = 3; // 3 options: MELEE / MAGIC / TECHNIQUE
+            } else if (battle_screen_vars->menu_option[0] == 1) { // PARTY selected
+                // find out how many party members there are
+                for (int i = 0; i < 3; i++) {
+                    if (my_team[i].get_level() == -1) {
+                        battle_screen_vars->num_options_menu[1] = i + 1;
+                        break;
+                    }
+                }
                 battle_screen_vars->num_options_menu[1] = 3;
-            } else if (battle_screen_vars->menu_option[0] == 1) { // if PARTY is selected
-                // up to 3 options depending on num of extra party members
-                // set to 0 temporarily, MUST CHANGE LATER
-                battle_screen_vars->num_options_menu[1] = 0;
-            } else if (battle_screen_vars->menu_option[0] == 2) { //  if ITEMS is selected
+            } else if (battle_screen_vars->menu_option[0] == 2) { // ITEMS selected
                 // up to n options depending on num of items held
                 // set to 0 temporarily, MUST CHANGE LATER
                 battle_screen_vars->num_options_menu[1] = 0;
+            } else if (battle_screen_vars->menu_option[0] == 3) { // ESCAPE selected
+
             }
-            battle_screen_vars->menu = 1;
-        }
 
-    } else if (battle_screen_vars->menu == 1) {
-        if (IsKeyPressed(KEY_UP)) {
-            battle_screen_vars->menu_option[1]--;
-        } else if (IsKeyPressed(KEY_DOWN)) {
-            battle_screen_vars->menu_option[1]++;
-        }
+        } else if (battle_screen_vars->menu == 1) { // (MELEE & MAGIC & TECHNIQUE) | (PARTY1 & PARTY 2 & PARTY 3) | (ITEMS) menu
+            if (battle_screen_vars->menu_option[0] == 0) { // (MELEE & MAGIC & TECHNIQUE) menu
+                if (battle_screen_vars->menu_option[1] == 0) { // if MELEE is selected
+                    // DISPLAY ALL MELEE OPTIONS
+                    battle_screen_vars->num_options_menu[2] = 1;
+                } else if (battle_screen_vars->menu_option[1] == 1) { // if MAGIC is selected
+                    // DISPLAY ALL MAGIC OPTIONS
+                    battle_screen_vars->num_options_menu[1] = 1;
+                } else if (battle_screen_vars->menu_option[2] == 2) { //  if TECHNIQUE is selected
+                    // DISPLAY ALL TECHNIQUE OPTIONS
+                    battle_screen_vars->num_options_menu[2] = 1;
+                }
+            } else if (battle_screen_vars->menu_option[0] == 1) { // (PARTY1 & PARTY 2 & PARTY 3) menu
+                
+            } else if (battle_screen_vars->menu_option[0] == 2) { // (ITEMS) menu
 
-        if (battle_screen_vars->menu_option[1] < 0) {
-            battle_screen_vars->menu_option[1] = 0;
-        } else if (battle_screen_vars->menu_option[1] > battle_screen_vars->num_options_menu[1] - 1) {
-            battle_screen_vars->menu_option[1] = battle_screen_vars->num_options_menu[1] - 1;
-        }
-
-        if (IsKeyPressed(KEY_ENTER)) {
-            if (battle_screen_vars->menu_option[1] == 0) { // if MELEE is selected
-                // DISPLAY ALL MELEE OPTIONS
-                battle_screen_vars->num_options_menu[2] = 0;
-            } else if (battle_screen_vars->menu_option[1] == 1) { // if MAGIC is selected
-                // DISPLAY ALL MAGIC OPTIONS
-                battle_screen_vars->num_options_menu[1] = 0;
-            } else if (battle_screen_vars->menu_option[2] == 2) { //  if TECHNIQUE is selected
-                // DISPLAY ALL TECHNIQUE OPTIONS
-                battle_screen_vars->num_options_menu[2] = 0;
             }
-            battle_screen_vars->menu = 2;
-        } else if (IsKeyPressed(KEY_BACKSPACE)) {
-            battle_screen_vars->menu = 0;
+        } else if (battle_screen_vars->menu == 2) { // (BASIC & MELEE0...) | (BASIC & MAGIC0...) | (BASIC & TECHNIQUE0) menu
+            // Can only get to this menu if FIGHT was selected
+            if (battle_screen_vars->menu_option[1] == 0) { // MELEE
+
+            } else if (battle_screen_vars->menu_option[1] == 1) { // MAGIC
+                
+            } else if (battle_screen_vars->menu_option[1] == 2) { // TECHNIQUE
+                
+            }
         }
-        
-    } else if (battle_screen_vars->menu == 2) {
-        
+
+        if (battle_screen_vars->menu != 2) {
+            battle_screen_vars->menu++;
+        }
+    } else if (IsKeyPressed(KEY_BACKSPACE)) {
+        if (battle_screen_vars->menu != 0) {
+            battle_screen_vars->menu--;
+        }
     }
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("BATTLE SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
 
         // Fight Scene Stuff
+        // Friendly team
         DrawRectangleRec(my_team[0].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("%s", my_team[0].get_name().c_str()), my_team[0].get_battle_pos().x, my_team[0].get_battle_pos().y - 75, 35, BLUE);
+        DrawRectangle(my_team[0].get_battle_pos().x, my_team[0].get_battle_pos().y - 30, (my_team[0].get_current_hp() / my_team[0].get_max_hp()) * my_team[0].get_battle_width(), 20, GREEN);
         DrawRectangleRec(my_team[1].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("%s", my_team[1].get_name().c_str()), my_team[1].get_battle_pos().x, my_team[1].get_battle_pos().y - 75, 35, BLUE);
+        DrawRectangle(my_team[1].get_battle_pos().x, my_team[1].get_battle_pos().y - 30, (my_team[1].get_current_hp() / my_team[1].get_max_hp()) * my_team[1].get_battle_width(), 20, GREEN);
         DrawRectangleRec(my_team[2].get_battle_hitbox(), BLUE);
+        DrawText(TextFormat("%s", my_team[2].get_name().c_str()), my_team[2].get_battle_pos().x, my_team[2].get_battle_pos().y - 75, 35, BLUE);
+        DrawRectangle(my_team[2].get_battle_pos().x, my_team[2].get_battle_pos().y - 30, (my_team[2].get_current_hp() / my_team[2].get_max_hp()) * my_team[2].get_battle_width(), 20, GREEN);
 
+        // Enemy team
         DrawRectangleRec(enemy_team[0].get_battle_hitbox(), RED);
+        DrawText(TextFormat("%s", enemy_team[0].get_name().c_str()), enemy_team[0].get_battle_pos().x, enemy_team[0].get_battle_pos().y - 75, 35, RED);
+        DrawRectangle(enemy_team[0].get_battle_pos().x, enemy_team[0].get_battle_pos().y - 30, (enemy_team[0].get_current_hp() / enemy_team[0].get_max_hp()) * enemy_team[0].get_battle_width(), 20, GREEN);
         DrawRectangleRec(enemy_team[1].get_battle_hitbox(), RED);
+        DrawText(TextFormat("%s", enemy_team[1].get_name().c_str()), enemy_team[1].get_battle_pos().x, enemy_team[1].get_battle_pos().y - 75, 35, RED);
+        DrawRectangle(enemy_team[1].get_battle_pos().x, enemy_team[1].get_battle_pos().y - 30, (enemy_team[1].get_current_hp() / enemy_team[1].get_max_hp()) * enemy_team[1].get_battle_width(), 20, GREEN);
         DrawRectangleRec(enemy_team[2].get_battle_hitbox(), RED);
+        DrawText(TextFormat("%s", enemy_team[2].get_name().c_str()), enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 75, 35, RED);
+        DrawRectangle(enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 30, (enemy_team[2].get_current_hp() / enemy_team[2].get_max_hp()) * enemy_team[2].get_battle_width(), 20, GREEN);
         
         // Menu Stuff
         DrawRectangleLinesEx(battle_screen_vars->battle_menu, 3, BLUE);
@@ -169,10 +195,17 @@ void battle_screen_loop(void* arg_) {
                 DrawTriangle({300, 1045}, {335, 1020}, {300, 995}, BLUE);
             }
 
-            if (battle_screen_vars->menu_option[0] == 0) { // Fight
+            if (battle_screen_vars->menu_option[0] == 0) { // FIGHT
                 DrawText("MELEE", 345, 860, 50, BLUE);
                 DrawText("MAGIC", 345, 905, 50, BLUE);
                 DrawText("TECHNIQUE", 345, 950, 50, BLUE);
+            } else if (battle_screen_vars->menu_option[0] == 1) { // PARTY
+                for (int i = 0; i < 3; i++) {
+                    if (my_team[i].get_level() == -1) {
+                        break;
+                    }
+                    DrawText(TextFormat("%s", my_team[i].get_name().c_str()), 345, 860 + i*45, 50, BLUE);
+                }
             }
         }
 
