@@ -27,6 +27,8 @@ private:
     int overworld_grid_x;
     int overworld_grid_y;
     Direction direction_facing;
+    int looking_at_x;
+    int looking_at_y;
 
     // battle stuff
     Texture2D battle_sprite[6];
@@ -62,6 +64,8 @@ public:
     int get_overworld_grid_x();
     int get_overworld_grid_y();
     Direction get_direction_facing();
+    int get_looking_at_x();
+    int get_looking_at_y();
 
     Texture2D get_battle_sprite(int index);
     Rectangle get_battle_hitbox();
@@ -96,6 +100,8 @@ public:
     void set_direction(Direction direction_);
     void set_facing_wall(bool facing_wall_);
     void set_direction_facing(Direction direction_facing_);
+    void set_looking_at_x(int x_);
+    void set_looking_at_y(int y_);
 
     void set_battle_sprite(Texture2D sprite_, int index);
     void set_battle_hitbox(Rectangle battle_hitbox_);

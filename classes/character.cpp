@@ -125,6 +125,14 @@ Direction Character::get_direction_facing() {
     return this->direction_facing;
 }
 
+int Character::get_looking_at_x() {
+    return this->looking_at_x;
+}
+
+int Character::get_looking_at_y() {
+    return this->looking_at_y;
+}
+
 
 Texture2D Character::get_battle_sprite(int index) { // returns sprite
     return this->battle_sprite[index];
@@ -256,6 +264,14 @@ void Character::set_battle_hitbox(Rectangle hitbox_) {
     this->battle_hitbox = hitbox_;
 }
 
+void Character::set_looking_at_x(int x_) {
+    this->looking_at_x = x_;
+}
+
+void Character::set_looking_at_y(int y_) {
+    this->looking_at_y = y_;
+}
+
 
 void Character::set_battle_pos(Vector2 pos_) { // sets character position
     this->battle_hitbox.x = pos_.x;
@@ -283,6 +299,34 @@ void Character::updateCharacter() {
     // calculate grid coords
     this->overworld_grid_x = (int)((this->get_overworld_hitbox()).x/48);
     this->overworld_grid_y = (int)((this->get_overworld_hitbox()).y/48);
+
+    // update the grid coord we are looking at
+    Direction dirfacing = this->get_direction_facing();
+
+    switch (dirfacing) 
+    {
+        case NONE:
+            this->set_looking_at_x(this->overworld_grid_x);
+            this->set_looking_at_y(this->overworld_grid_y);
+            break;
+        case UP:
+            this->set_looking_at_x(this->overworld_grid_x);
+            this->set_looking_at_y(this->overworld_grid_y - 1);
+            break;
+        case RIGHT:
+            this->set_looking_at_x(this->overworld_grid_x + 1);
+            this->set_looking_at_y(this->overworld_grid_y);
+            break;
+        case DOWN:
+            this->set_looking_at_x(this->overworld_grid_x);
+            this->set_looking_at_y(this->overworld_grid_y + 1);
+            break;
+        case LEFT:
+            this->set_looking_at_x(this->overworld_grid_x - 1);
+            this->set_looking_at_y(this->overworld_grid_y);
+            break;
+    }
+    
 }
 
 void Character::moveCharacter() { // moves the character based on input
@@ -335,6 +379,7 @@ void Character::drawCharacter() { // draws the character sprite
             source = {192,0,48,48};
             break;
     }
+    
     DrawTexturePro(this->get_overworld_sprite(0), source, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
 }
 
