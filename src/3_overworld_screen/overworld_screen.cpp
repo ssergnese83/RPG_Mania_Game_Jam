@@ -23,10 +23,8 @@ void overworld_screen(void) {
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
     overworld_screen_vars->gameMapRec = {0, 0, SCREEN_W, SCREEN_H};
     overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
-    // overworld_screen_vars->collisionMap = LoadImage("assets/test_background_collision.bmp");
+    // overworld_screen_vars->collisionMap = LoadImage("assets/test_collision.bmp");
     // ExportImageAsCode(overworld_screen_vars->collisionMap, "assets/test_collision.txt");
-
-    // need to add "#define SUPPORT_FILEFORMAT_BMP" in globals or raylib.h or rtextures.c
 
     overworld_screen_vars->moveBuffer[0] = NONE;
     overworld_screen_vars->moveBuffer[1] = NONE;
