@@ -21,7 +21,7 @@ Character::Character() { // Default constructor
     this->overworld_hitbox = Rectangle {0, 0, 48, 48}; // Default overworld_hitbox is a 48x48 square at (0, 0)
     this->direction = NONE;
 
-    this->battle_hitbox = Rectangle {0, 0, 48, 96}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
+    this->battle_hitbox = Rectangle {0, 0, 3*(48), 4*(48)}; // Default battle_hitbox is a 48x96 rectangle at (0, 0)
 }
 
 // getters
