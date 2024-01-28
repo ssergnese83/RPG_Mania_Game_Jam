@@ -5,6 +5,7 @@
 #include "character.hpp"
 
 extern Character* player;
-extern Character* enemy;
+extern Character* my_team;
+extern Character* enemy_team;
 
 #endif // characters_hpp

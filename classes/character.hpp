@@ -12,6 +12,11 @@ private:
     int spd;
     int atk;
     int def;
+    int fire;
+    int air;
+    int earth;
+    int lightning;
+    int water;
 
     // overworld stuff
     Texture2D overworld_sprite[6];
@@ -33,6 +38,11 @@ public:
     int get_spd();
     int get_atk();
     int get_def();
+    int get_fire();
+    int get_air();
+    int get_earth();
+    int get_lightning();
+    int get_water();
 
     Texture2D get_overworld_sprite(int index); // returns overworld_sprite
     Rectangle get_overworld_hitbox(); // returns overworld_hitbox
@@ -58,6 +68,11 @@ public:
     void set_spd(int spd_);
     void set_atk(int atk_);
     void set_def(int def_);
+    void set_fire(int fire_);
+    void set_air(int air_);
+    void set_earth(int earth_);
+    void set_lightning(int lightning_);
+    void set_water(int water_);
 
     void set_overworld_sprite(Texture2D sprite_, int index); // sets sprite
     void set_overworld_hitbox(Rectangle overworld_hitbox_); // sets overworld_hitbox

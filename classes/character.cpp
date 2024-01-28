@@ -12,6 +12,11 @@ Character::Character() { // Default constructor
     this->spd = 10;
     this->atk = 10;
     this->def = 10;
+    this->fire = 10;
+    this->air = 10;
+    this->earth = 10;
+    this->lightning = 10;
+    this->water = 10;
     this->loadSprite();
     this->overworld_hitbox = Rectangle {0, 0, 48, 48}; // Default overworld_hitbox is a 48x48 square at (0, 0)
     this->direction = NONE;
@@ -42,6 +47,26 @@ int Character::get_atk() {
 
 int Character::get_def() {
     return this->def;
+}
+
+int Character::get_fire() {
+    return this->fire;
+}
+
+int Character::get_air() {
+    return this->air;
+}
+
+int Character::get_earth() {
+    return this->air;
+}
+
+int Character::get_lightning() {
+    return this->lightning;
+}
+
+int Character::get_water() {
+    return this->water;
 }
 
 Texture2D Character::get_overworld_sprite(int index) { // returns sprite
@@ -127,6 +152,26 @@ void Character::set_atk(int atk_) {
 
 void Character::set_def(int def_) {
     this->def = def_;
+}
+
+void Character::set_fire(int fire_) {
+    this->fire = fire_;
+}
+
+void Character::set_air(int air_) {
+    this->air = air_;
+}
+
+void Character::set_earth(int earth_) {
+    this->earth = earth_;
+}
+
+void Character::set_lightning(int lightning_) {
+    this->lightning = lightning_;
+}
+
+void Character::set_water(int water_) {
+    this->water = water_;
 }
 
 void Character::set_overworld_sprite(Texture2D sprite_, int index) {
