@@ -26,9 +26,9 @@ void overworld_screen(void) {
     // local vars init and alloc
     OverworldScreenVars* overworld_screen_vars = new OverworldScreenVars;
     overworld_screen_vars->gameMapRec = {0, 0, SCREEN_W, SCREEN_H};
-    overworld_screen_vars->gameMap = LoadTexture("assets/test_background.png");
+    overworld_screen_vars->gameMap = LoadTexture("assets/maps/test_background.png");
 
-    overworld_screen_vars->collisionMap = LoadImage("assets/test_background.png");
+    overworld_screen_vars->collisionMap = LoadImage("assets/maps/test_background.png");
     overworld_screen_vars->collisionColors = LoadImageColors(overworld_screen_vars->collisionMap);
     
 
@@ -134,8 +134,8 @@ void overworld_screen_loop(void* arg_) {
                 player->set_facing_wall(false);
             }
 
-
-            DrawRectangle((playerGridIndex + differentialIndex)%1920, (playerGridIndex + differentialIndex)/1920, 10, 10, ORANGE);
+            // collision debug
+            // DrawRectangle((playerGridIndex + differentialIndex)%1920, (playerGridIndex + differentialIndex)/1920, 10, 10, ORANGE);
 
             *inputCounterPtr = MOVEFRAMES;
         }
