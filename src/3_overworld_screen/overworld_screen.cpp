@@ -5,6 +5,8 @@
 #include <stdio.h>
 
 void overworld_screen_loop(void* arg_);
+int get_key_from_direction(Direction dir);
+Direction get_direction_from_key(int key);
 
 typedef struct OverworldScreenVars {
     Direction moveBuffer[2]; // [x, y] - x is most recent move, y is second most recent move
@@ -39,114 +41,46 @@ void overworld_screen_loop(void* arg_) {
     // movement
     (*inputCounterPtr)--;
 
-    switch (moveBufferPtr[1]) // check for key release
+    // release checking
+    int key = get_key_from_direction(moveBufferPtr[1]); // check second most recent key
+
+    if (IsKeyUp(key)) // if second most recent key has been released
     {
-        case NONE:
-            // do nothing
-            break;
-        case UP:
-            if (IsKeyUp(KEY_UP)) 
-            {
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case RIGHT:
-            if (IsKeyUp(KEY_RIGHT)) 
-            {
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case DOWN:
-            if (IsKeyUp(KEY_DOWN)) 
-            {
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case LEFT:
-            if (IsKeyUp(KEY_LEFT)) 
-            {
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        
+        moveBufferPtr[1] = NONE; // clear it
     }
 
-    switch (moveBufferPtr[0]) // check for key release and shift
+    key = get_key_from_direction(moveBufferPtr[0]); // check most recent key
+
+    if (IsKeyUp(key)) // if most recent key has been released
     {
-        case NONE:
-            // do nothing
-            break;
-        case UP:
-            if (IsKeyUp(KEY_UP)) 
-            {
-                moveBufferPtr[0] = moveBufferPtr[1];
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case RIGHT:
-            if (IsKeyUp(KEY_RIGHT)) 
-            {
-                moveBufferPtr[0] = moveBufferPtr[1];
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case DOWN:
-            if (IsKeyUp(KEY_DOWN)) 
-            {
-                moveBufferPtr[0] = moveBufferPtr[1];
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        case LEFT:
-            if (IsKeyUp(KEY_LEFT)) 
-            {
-                moveBufferPtr[0] = moveBufferPtr[1];
-                moveBufferPtr[1] = NONE;
-            }
-            break;
-        
+        moveBufferPtr[0] = moveBufferPtr[1]; // move in second most recent direction
+        moveBufferPtr[1] = NONE;
     }
 
-    if (moveBufferPtr[0] = NONE) // no most recent input
+    // press checking
+    do 
     {
-        if (IsKeyDown(KEY_UP)) 
-        {
-            moveBufferPtr[0] = UP;
-        }
-        if (IsKeyDown(KEY_DOWN)) 
-        {
-            moveBufferPtr[0] = DOWN;
-        }
-        if (IsKeyDown(KEY_RIGHT)) 
-        {
-            moveBufferPtr[0] = RIGHT;
-        }
-        if (IsKeyDown(KEY_LEFT)) 
-        {
-            moveBufferPtr[0] = LEFT;
-        }
-    } else // already a most recent input
-    {
-        moveBufferPtr[1] = moveBufferPtr[0]; // shift most recent key over and fill spot
+        key = GetKeyPressed();
 
-        if (IsKeyDown(KEY_UP)) 
+    } while ((key != 0) && (key != KEY_UP) && (key != KEY_RIGHT) && (key != KEY_DOWN) && (key != KEY_LEFT));
+
+    if (key != 0) // got arrow key input
+    {
+        if (moveBufferPtr[1] == NONE) // only accept if <2 keys are pressed
         {
-            moveBufferPtr[0] = UP;
+            moveBufferPtr[1] = moveBufferPtr[0]; // shift recent key
+            moveBufferPtr[0] = get_direction_from_key(key); // set as most recent dir
         }
-        if (IsKeyDown(KEY_DOWN)) 
+
+        // clear rest of queue
+        while (key != 0) // will be true first time
         {
-            moveBufferPtr[0] = DOWN;
-        }
-        if (IsKeyDown(KEY_RIGHT)) 
-        {
-            moveBufferPtr[0] = RIGHT;
-        }
-        if (IsKeyDown(KEY_LEFT)) 
-        {
-            moveBufferPtr[0] = LEFT;
+            key = GetKeyPressed();
         }
     }
-    
+
+    // queue is empty here
+
 
 
 
@@ -177,4 +111,52 @@ void overworld_screen_loop(void* arg_) {
     next_screen = OVERWORLDSCREEN;
     
     window_handling();
+}
+
+int get_key_from_direction(Direction dir) 
+{
+    switch (dir) 
+    {
+        case NONE:
+            break;
+        case UP:
+            return KEY_UP;
+            break;
+        case RIGHT:
+            return KEY_RIGHT;
+            break;
+        case DOWN:
+            return KEY_DOWN;
+            break;
+        case LEFT:
+            return KEY_LEFT;
+            break;
+        default:
+            return 0;
+    }
+
+    return 0;
+}
+
+Direction get_direction_from_key(int key) 
+{
+    switch (key) 
+    {
+        case KEY_UP:
+            return UP;
+            break;
+        case KEY_RIGHT:
+            return RIGHT;
+            break;
+        case KEY_DOWN:
+            return DOWN;
+            break;
+        case KEY_LEFT:
+            return LEFT;
+            break;
+        default:
+            return NONE;
+    }
+
+    return NONE;
 }
