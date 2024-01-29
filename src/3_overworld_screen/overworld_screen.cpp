@@ -126,14 +126,15 @@ void overworld_screen_loop(void* arg_) {
         // player update
         player->updateCharacter();
 
-        if (*inputCounterPtr == 0) 
+        if (moveBufferPtr[0] != NONE) // avoid setting dir facing to none
+        {
+            player->set_direction_facing(moveBufferPtr[0]);
+        }
+
+        if (*inputCounterPtr == 0) // only move every MOVEFRAMES
         {
             player->set_direction(moveBufferPtr[0]);
             
-            if (moveBufferPtr[0] != NONE) // avoid setting dir facing to none
-            {
-                player->set_direction_facing(moveBufferPtr[0]);
-            }
 
             // check for collision
             if (((player->get_overworld_grid_x() + ((moveBufferPtr[0] == RIGHT)?(1):(0)) + ((moveBufferPtr[0] == LEFT)?(-1):(0))) == npc1Ptr->get_overworld_grid_x()) && ((player->get_overworld_grid_y() + ((moveBufferPtr[0] == UP)?(-1):(0)) + ((moveBufferPtr[0] == DOWN)?(1):(0))) == npc1Ptr->get_overworld_grid_y()))
