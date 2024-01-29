@@ -25,6 +25,7 @@ extern bool debug_mode;
 
 enum GameScreen {STARTUP = 0, TITLESCREEN = 1, MENUSCREEN = 2, OVERWORLDSCREEN = 3, BATTLESCREEN = 4};
 enum Direction {NONE = 0, UP = 1, RIGHT = 2, DOWN = 3, LEFT = 4};
+enum BattleState {MOVESELECT = 0, MOVEEXECUTE = 1};
 
 extern GameScreen next_screen;
 extern GameScreen current_screen;

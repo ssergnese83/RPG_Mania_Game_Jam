@@ -14,7 +14,6 @@ void title_screen(void) {
 
     titleTrack = new Music;
     *titleTrack = LoadMusicStream("assets/Music/Track_1.mp3");
-
     PlayMusicStream(*titleTrack);
 
     while (!end_loop) {
