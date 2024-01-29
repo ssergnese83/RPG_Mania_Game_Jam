@@ -81,8 +81,9 @@ void battle_screen_loop(void* arg_) {
 
     }
 
-    if (GetMusicTimePlayed(battleTrack) >= 68.53f) {//Music Looping
-            SeekMusicStream(battleTrack, 2.9f);
+    //Music Loop
+    if (GetMusicTimePlayed(battleTrack) >= 68.6f) {
+            SeekMusicStream(battleTrack, 2.8f);
             PlayMusicStream(battleTrack);
     }
 
