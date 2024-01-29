@@ -49,6 +49,8 @@ void menu_screen(void) {
     while (!end_loop) {
         menu_screen_loop(menu_screen_vars);
     }
+    StopMusicStream(titleTrack);
+    UnloadMusicStream(titleTrack);
     previous_screen = current_screen;
     current_screen = next_screen;
 
@@ -189,6 +191,7 @@ void menu_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+    UpdateMusicStream(titleTrack);
 
     // next screen logic
     next_screen = OVERWORLDSCREEN;

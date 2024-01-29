@@ -17,6 +17,7 @@ GameScreen previous_screen = STARTUP;
 Character* player;
 Character* my_team;
 Character* enemy_team;
+Music titleTrack;
 
 int main(void) {
     InitWindow(SCREEN_W, SCREEN_H, "game title"); // change title

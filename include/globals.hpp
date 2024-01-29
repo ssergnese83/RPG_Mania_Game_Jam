@@ -31,6 +31,8 @@ extern GameScreen next_screen;
 extern GameScreen current_screen;
 extern GameScreen previous_screen;
 
+extern Music titleTrack;
+
 void window_handling(void);
 void draw_debug_stuff(void);
 

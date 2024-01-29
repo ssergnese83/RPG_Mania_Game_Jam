@@ -12,6 +12,9 @@ void startup_screen(void) {
     StartupScreenVars* startup_screen_vars = (StartupScreenVars*)malloc(sizeof(StartupScreenVars));
     startup_screen_vars->mouse_position = {0.0,0.0};
 
+    titleTrack = LoadMusicStream("assets/Music/Track_1.mp3");
+    PlayMusicStream(titleTrack);
+
     while (!end_loop) {
         startup_screen_loop(startup_screen_vars);
     }
@@ -44,6 +47,7 @@ void startup_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+    UpdateMusicStream(titleTrack);
 
     // next screen logic
     next_screen = TITLESCREEN;

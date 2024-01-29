@@ -2,7 +2,6 @@
 #include <raylib.h>
 
 void title_screen_loop(void* arg_);
-Music *titleTrack;
 
 typedef struct TitleScreenVars {
     Vector2 mouse_position;
@@ -12,19 +11,13 @@ void title_screen(void) {
     TitleScreenVars* title_screen_vars = new TitleScreenVars;
     title_screen_vars->mouse_position = {0.0,0.0};
 
-    titleTrack = new Music;
-    *titleTrack = LoadMusicStream("assets/Music/Track_1.mp3");
-    PlayMusicStream(*titleTrack);
-
     while (!end_loop) {
         title_screen_loop(title_screen_vars);
     }
 
-    StopMusicStream(*titleTrack);
     previous_screen = current_screen;
     current_screen = next_screen;
-    UnloadMusicStream(*titleTrack);
-    delete titleTrack;
+  
     delete title_screen_vars;
 }
 
@@ -51,8 +44,7 @@ void title_screen_loop(void* arg_) {
         }
 
     EndDrawing();
-
-    UpdateMusicStream(*titleTrack);
+    UpdateMusicStream(titleTrack);
     // next screen logic
     next_screen = MENUSCREEN;
     
