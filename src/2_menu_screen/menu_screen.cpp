@@ -30,6 +30,9 @@ typedef struct MenuScreenVars {
 void menu_screen(void) {
     MenuScreenVars* menu_screen_vars = new MenuScreenVars;
 
+    //Sound effect for buttons
+    menuSelect = LoadSound("assets/sfx/sample_select.mp3");
+
     menu_screen_vars->mouse_position = {0.0,0.0};
     menu_screen_vars->continue_button = {1100, 400, 700, 150};
     menu_screen_vars->new_game_button = {1100, 600, 700, 150};
@@ -66,9 +69,10 @@ void menu_screen_loop(void* arg_) {
     if (menu_screen_vars->starting_new_game == false) {
         if (IsKeyPressed(KEY_UP)) {
             // play a sound effect
+            PlaySound(menuSelect);
             menu_screen_vars->menu_option--;
         } else if (IsKeyPressed(KEY_DOWN)) {
-            // play a sound effect
+            PlaySound(menuSelect);
             menu_screen_vars->menu_option++;
         }
 
@@ -95,9 +99,11 @@ void menu_screen_loop(void* arg_) {
         // selection between cancel and OK options
         if (IsKeyPressed(KEY_LEFT)) {
             // play a sound effect
+            PlaySound(menuSelect);
             menu_screen_vars->menu_option_2--;
         } else if (IsKeyPressed(KEY_RIGHT)) {
             // play a sound effect
+            PlaySound(menuSelect);
             menu_screen_vars->menu_option_2++;
         }
 
