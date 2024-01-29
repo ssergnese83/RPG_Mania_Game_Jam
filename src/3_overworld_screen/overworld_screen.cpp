@@ -21,6 +21,7 @@ typedef struct OverworldScreenVars {
 
     // NPCs
     Character* npc1;
+    Texture npc1Sprite;
 } OverworldScreenVars;
 
 void overworld_screen(void) {
@@ -36,7 +37,10 @@ void overworld_screen(void) {
     overworld_screen_vars->moveBuffer[1] = NONE;
     overworld_screen_vars->inputCounter = MOVEFRAMES;
 
+    overworld_screen_vars->npc1Sprite = LoadTexture("assets/npc1sheet.png");
     overworld_screen_vars->npc1 = new Character; // TODO move to characters.hpp
+    overworld_screen_vars->npc1->set_overworld_pos({17*48,12*48});
+    overworld_screen_vars->npc1->set_overworld_sprite(overworld_screen_vars->npc1Sprite);
 
     while (!end_loop) {
         overworld_screen_loop(overworld_screen_vars);
@@ -45,6 +49,7 @@ void overworld_screen(void) {
     current_screen = next_screen;
 
     // local vars dealloc
+    delete overworld_screen_vars->npc1;
     UnloadImageColors(overworld_screen_vars->collisionColors); // remove later
     delete overworld_screen_vars;
 }
@@ -56,7 +61,7 @@ void overworld_screen_loop(void* arg_) {
     int* inputCounterPtr = &(overworld_screen_vars->inputCounter);
     Color* colorPtr = (overworld_screen_vars->collisionColors);
 
-
+    Character* npc1Ptr = overworld_screen_vars->npc1;
 
     // movement
     (*inputCounterPtr)--;
@@ -92,7 +97,6 @@ void overworld_screen_loop(void* arg_) {
             
             moveBufferPtr[1] = moveBufferPtr[0]; // shift recent key
             moveBufferPtr[0] = dir; // set as most recent dir
-            player->set_direction_facing(dir);
         }
 
         // clear rest of queue
@@ -115,29 +119,46 @@ void overworld_screen_loop(void* arg_) {
 
         DrawText("OVERWORLD SCREEN", SCREEN_W/2 - 384, 104, 80, GREEN);
 
-        // player
+        // npc1
+        npc1Ptr->updateCharacter();
+        npc1Ptr->drawCharacter();
+
+        // player update
         player->updateCharacter();
 
         if (*inputCounterPtr == 0) 
         {
             player->set_direction(moveBufferPtr[0]);
-
-            // check for collision
-            int playerGridIndex = 48 * ((player->get_overworld_grid_y() * 1920) + player->get_overworld_grid_x());
-            int differentialIndex = get_differential_from_direction(moveBufferPtr[0]);
-            if (colorPtr[playerGridIndex + differentialIndex].r == 0x00) 
+            
+            if (moveBufferPtr[0] != NONE) // avoid setting dir facing to none
             {
-                player->set_facing_wall(true);
-            } else 
-            {
-                player->set_facing_wall(false);
+                player->set_direction_facing(moveBufferPtr[0]);
             }
 
-            // collision debug
-            // DrawRectangle((playerGridIndex + differentialIndex)%1920, (playerGridIndex + differentialIndex)/1920, 10, 10, ORANGE);
+            // check for collision
+            if (((player->get_overworld_grid_x() + ((moveBufferPtr[0] == RIGHT)?(1):(0)) + ((moveBufferPtr[0] == LEFT)?(-1):(0))) == npc1Ptr->get_overworld_grid_x()) && ((player->get_overworld_grid_y() + ((moveBufferPtr[0] == UP)?(-1):(0)) + ((moveBufferPtr[0] == DOWN)?(1):(0))) == npc1Ptr->get_overworld_grid_y()))
+            {
+                player->set_facing_wall(true);
+            } else // not going to collide with npc
+            {
+                int playerGridIndex = 48 * ((player->get_overworld_grid_y() * 1920) + player->get_overworld_grid_x());
+                int differentialIndex = get_differential_from_direction(moveBufferPtr[0]);
+                if (colorPtr[playerGridIndex + differentialIndex].r == 0x00) 
+                {
+                    player->set_facing_wall(true);
+                } else 
+                {
+                    player->set_facing_wall(false);
+                }
+
+                // collision debug
+                // DrawRectangle((playerGridIndex + differentialIndex)%1920, (playerGridIndex + differentialIndex)/1920, 10, 10, ORANGE);
+            }
 
             *inputCounterPtr = MOVEFRAMES;
         }
+
+        // player move and draw
         player->moveCharacter();
         player->drawCharacter();
 
