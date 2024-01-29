@@ -52,7 +52,7 @@ public:
     int get_lightning();
     int get_water();
 
-    Texture2D get_overworld_sprite(int index); // returns overworld_sprite
+    Texture2D get_overworld_sprite(); // returns overworld_sprite
     Rectangle get_overworld_hitbox(); // returns overworld_hitbox
     
     Vector2 get_overworld_pos(); // returns the character position
@@ -89,7 +89,7 @@ public:
     void set_lightning(int lightning_);
     void set_water(int water_);
 
-    void set_overworld_sprite(Texture2D sprite_, int index); // sets sprite
+    void set_overworld_sprite(Texture2D sprite_); // sets sprite
     void set_overworld_hitbox(Rectangle overworld_hitbox_); // sets overworld_hitbox
 
     void set_overworld_pos(Vector2 pos_); // sets character position

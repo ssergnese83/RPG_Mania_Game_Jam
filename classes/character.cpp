@@ -78,7 +78,7 @@ int Character::get_water() {
     return this->water;
 }
 
-Texture2D Character::get_overworld_sprite(int index) { // returns sprite
+Texture2D Character::get_overworld_sprite() { // returns sprite
     return this->overworld_sprite;
 }
 
@@ -213,7 +213,7 @@ void Character::set_water(int water_) {
     this->water = water_;
 }
 
-void Character::set_overworld_sprite(Texture2D sprite_, int index) {
+void Character::set_overworld_sprite(Texture2D sprite_) {
     this->overworld_sprite = sprite_;
 }
 
@@ -380,7 +380,7 @@ void Character::drawCharacter() { // draws the character sprite
             break;
     }
     
-    DrawTexturePro(this->get_overworld_sprite(0), source, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
+    DrawTexturePro(this->get_overworld_sprite(), source, this->get_overworld_hitbox(), {0,0}, 0, WHITE);
 }
 
 void Character::loadSprite() {
