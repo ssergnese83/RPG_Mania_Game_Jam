@@ -90,6 +90,19 @@ void battle_screen_loop(void* arg_) {
 
 void select_move(void* arg_) {
     BattleScreenVars* battle_screen_vars = (BattleScreenVars*) arg_;
+    
+    // Character selection
+    if (IsKeyPressed(KEY_W)) {
+        battle_screen_vars->char_selected--;
+    } else if (IsKeyPressed(KEY_S)) {
+        battle_screen_vars->char_selected++;
+    }
+
+    if (battle_screen_vars->char_selected < 0) {
+        battle_screen_vars->char_selected = 0;
+    } else if (battle_screen_vars->char_selected > 2) {
+        battle_screen_vars->char_selected = 2;
+    }
 
     if (IsKeyPressed(KEY_UP)) {
         battle_screen_vars->menu_option[battle_screen_vars->menu]--;
@@ -172,11 +185,11 @@ void select_move(void* arg_) {
         // Fight Scene Stuff
         // Friendly team
         if (battle_screen_vars->char_selected == 0) {
-            // DrawTr
+            DrawTriangle({my_team[0].get_battle_pos().x + my_team[0].get_battle_width()/2, my_team[0].get_battle_pos().y - 70}, {my_team[0].get_battle_pos().x + my_team[0].get_battle_width() - 50, my_team[0].get_battle_pos().y - 100}, {my_team[0].get_battle_pos().x + 50, my_team[0].get_battle_pos().y - 100}, BLUE);
         } else if (battle_screen_vars->char_selected == 1) {
-            
+            DrawTriangle({my_team[1].get_battle_pos().x + my_team[1].get_battle_width()/2, my_team[1].get_battle_pos().y - 70}, {my_team[1].get_battle_pos().x + my_team[1].get_battle_width() - 50, my_team[1].get_battle_pos().y - 100}, {my_team[1].get_battle_pos().x + 50, my_team[1].get_battle_pos().y - 100}, BLUE);
         } else if (battle_screen_vars->char_selected == 2) {
-            
+            DrawTriangle({my_team[2].get_battle_pos().x + my_team[2].get_battle_width()/2, my_team[2].get_battle_pos().y - 70}, {my_team[2].get_battle_pos().x + my_team[2].get_battle_width() - 50, my_team[2].get_battle_pos().y - 100}, {my_team[2].get_battle_pos().x + 50, my_team[2].get_battle_pos().y - 100}, BLUE);
         }
 
         // Friendly1
