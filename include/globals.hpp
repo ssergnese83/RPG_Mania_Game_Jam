@@ -32,6 +32,7 @@ extern GameScreen current_screen;
 extern GameScreen previous_screen;
 
 extern Music titleTrack;
+extern Music battleTrack;
 
 void window_handling(void);
 void draw_debug_stuff(void);

@@ -18,6 +18,7 @@ Character* player;
 Character* my_team;
 Character* enemy_team;
 Music titleTrack;
+Music battleTrack;
 
 int main(void) {
     InitWindow(SCREEN_W, SCREEN_H, "game title"); // change title
