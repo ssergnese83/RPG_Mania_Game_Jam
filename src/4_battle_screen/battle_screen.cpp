@@ -5,6 +5,8 @@
 
 void battle_screen_loop(void* arg_);
 void select_move(void* arg_);
+void execute_move(void* arg_);
+
 BattleState battle_state = MOVESELECT;
 
 typedef struct BatttleScreenVars {
@@ -13,6 +15,7 @@ typedef struct BatttleScreenVars {
     int menu_option[3];
     int num_options_menu[3];
     int char_selected;
+    int actions_selected;
     Vector2 mouse_position;
 } BattleScreenVars;
 
@@ -44,6 +47,8 @@ void battle_screen(void) {
 
     battle_screen_vars->menu_option[2] = 0;
     battle_screen_vars->num_options_menu[2] = 0;
+
+    battle_screen_vars->actions_selected = 0;
 
     battle_screen_vars->mouse_position = {0.0, 0.0};
     
@@ -79,6 +84,10 @@ void battle_screen_loop(void* arg_) {
         select_move(battle_screen_vars);
     } else if (battle_state == MOVEEXECUTE) {
 
+    }
+
+    if (battle_screen_vars->actions_selected == max_actions) {
+        battle_state = MOVEEXECUTE;
     }
 
     //Music Loop
@@ -166,7 +175,11 @@ void select_move(void* arg_) {
         } else if (battle_screen_vars->menu == 2) { // (BASIC & MELEE0...) | (BASIC & MAGIC0...) | (BASIC & TECHNIQUE0) menu
             // Can only get to this menu if FIGHT was selected
             if (battle_screen_vars->menu_option[1] == 0) { // MELEE
-
+                if (battle_screen_vars->menu_option[2] == 0) { // BASIC
+                    if (battle_screen_vars->actions_selected + 1 <= max_actions) {
+                        battle_screen_vars->actions_selected += 1;
+                    }
+                }
             } else if (battle_screen_vars->menu_option[1] == 1) { // MAGIC
                 
             } else if (battle_screen_vars->menu_option[1] == 2) { // TECHNIQUE
@@ -238,6 +251,9 @@ void select_move(void* arg_) {
         DrawRectangle(enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 30, (enemy_team[2].get_current_hp() / enemy_team[2].get_max_hp()) * enemy_team[2].get_battle_width(), 15, GREEN);
         DrawRectangleLinesEx({enemy_team[2].get_battle_pos().x, enemy_team[2].get_battle_pos().y - 30, enemy_team[2].get_battle_width(), 17}, 3, BLACK);
         DrawRectangleRec(enemy_team[2].get_battle_hitbox(), RED);
+
+        // Action Meter
+        DrawText(TextFormat("%d / %d", battle_screen_vars->actions_selected, max_actions), battle_screen_vars->battle_menu.x + 20, battle_screen_vars->battle_menu.y - 50, 45, BLUE);
 
         // Menu Stuff
         DrawRectangleLinesEx(battle_screen_vars->battle_menu, 3, BLUE);
@@ -327,4 +343,10 @@ void select_move(void* arg_) {
         }
 
     EndDrawing();
+}
+
+void execute_move(void* arg_) {
+    BattleScreenVars* battle_screen_vars = (BattleScreenVars*) arg_;
+
+    
 }
