@@ -17,6 +17,7 @@ GameScreen previous_screen = STARTUP;
 Character* player;
 Character* my_team;
 Character* enemy_team;
+int max_actions = 3;
 Music titleTrack;
 Music battleTrack;
 
