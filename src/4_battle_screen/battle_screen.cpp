@@ -105,9 +105,9 @@ void select_move(void* arg_) {
     BattleScreenVars* battle_screen_vars = (BattleScreenVars*) arg_;
 
     // Character selection
-    if (IsKeyPressed(KEY_W)) {
+    if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_A)) {
         battle_screen_vars->char_selected--;
-    } else if (IsKeyPressed(KEY_S)) {
+    } else if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_D)) {
         battle_screen_vars->char_selected++;
     }
 
