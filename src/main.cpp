@@ -20,6 +20,7 @@ Character* enemy_team;
 int max_actions = 3;
 Music titleTrack;
 Music battleTrack;
+Sound menuSelect;
 
 int main(void) {
     InitWindow(SCREEN_W, SCREEN_H, "game title"); // change title

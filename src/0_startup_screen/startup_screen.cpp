@@ -47,6 +47,13 @@ void startup_screen_loop(void* arg_) {
         }
 
     EndDrawing();
+
+    //Music Loop
+    if (GetMusicTimePlayed(titleTrack) >= 60.45f) {
+            SeekMusicStream(titleTrack, 7.112f);
+            PlayMusicStream(titleTrack);
+    }
+
     UpdateMusicStream(titleTrack);
 
     // next screen logic
